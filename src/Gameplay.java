@@ -34,7 +34,7 @@ public class Gameplay {
     public static int lInt = 0;
     public static World GameWorld;
 
-    /* Takes in the user input */
+    // Takes in the user input
     static void runGame(Integer objects) {
         Rock.rockCount = 0;
         Paper.paperCount = 0;
