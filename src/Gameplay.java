@@ -52,7 +52,7 @@ public class Gameplay {
                 System.out.println("Welcome to the Rock, paper, scissors game \n"); // This section of code prompts the users to input a length-
                 System.out.println("What is the width of your matrix?: ");          // and width for the game matrix
                 String w = input.nextLine();
-                System.out.println("What is the length of your matrix?: ");
+                System.out.println("What is the height of your matrix?: ");
                 String l = input.nextLine();
 
                 wInt = Integer.parseInt(w);

@@ -179,19 +179,19 @@ class World{
             // rock attack
             for (int rockIdx = 0; rockIdx < this.rocks.size(); rockIdx++){
                 if (this.rocks.get(rockIdx).getEntityPosition().getPointX() != -1) {
-                    attackInstance = this.rocks.get(rockIdx).rockAttack();
+                    attackInstance = this.rocks.get(rockIdx).rockAttack() || attackInstance;
                 }
             }
             // paper attack
             for (int paperIdx = 0; paperIdx < this.paper.size(); paperIdx++){
                 if (this.paper.get(paperIdx).getEntityPosition().getPointX() != -1) {
-                    attackInstance = this.paper.get(paperIdx).paperAttack();
+                    attackInstance = this.paper.get(paperIdx).paperAttack() || attackInstance;
                 }
             }
             // scissors attack
             for (int scissorsIdx = 0; scissorsIdx < this.scissors.size(); scissorsIdx++){
                 if (this.scissors.get(scissorsIdx).getEntityPosition().getPointX() != -1) {
-                    attackInstance = this.scissors.get(scissorsIdx).scissorsAttack();
+                    attackInstance = this.scissors.get(scissorsIdx).scissorsAttack() || attackInstance;
                 }
             }
 
