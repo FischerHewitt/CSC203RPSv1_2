@@ -264,8 +264,8 @@ public class TestCases {
         world12.printWorld();
 
         // Test 13
-        // Test moveScissors() method. Scissors starting at (1,1)
-        System.out.println("Test 13:\nTesting moveScissors() method, starting at (1,1).");
+        // Test moveScissors() method. Scissors starting at (0,0)
+        System.out.println("Test 13:\nTesting moveScissors() method, starting at (0,0).");
         System.out.println(
                 """
         Expected output:
@@ -280,8 +280,8 @@ public class TestCases {
         """);
         System.out.println("Actual output:");
         World world13 = new World(3, 3);
-        world13.world[1][1] = new Scissors(new Point(1,1), world13.world);
-        ((Scissors) world13.world[1][1]).moveScissors();
+        world13.world[0][0] = new Scissors(new Point(0,0), world13.world);
+        ((Scissors) world13.world[0][0]).moveScissors();
         world13.printWorld();
 
         // Test 14

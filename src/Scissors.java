@@ -129,6 +129,7 @@ public class Scissors {
 
         for (Point p : validNeighbors) {
             if(world[p.getPointX()][p.getPointY()] instanceof Paper){
+                ((Paper) world[p.getPointX()][p.getPointY()]).setEntityPosition(new Point(-1, -1));
                 world[p.getPointX()][p.getPointY()] = null;
                 Paper.paperCount--;
             }

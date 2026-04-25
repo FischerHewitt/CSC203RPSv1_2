@@ -130,6 +130,7 @@ public class Paper {
 
         for (Point p : validNeighbors) {
             if(world[p.getPointX()][p.getPointY()] instanceof Rock){
+                ((Rock) world[p.getPointX()][p.getPointY()]).setEntityPosition(new Point(-1, -1));
                 world[p.getPointX()][p.getPointY()] = null;
                 Rock.rockCount--;
             }

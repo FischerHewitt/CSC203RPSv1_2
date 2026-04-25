@@ -34,82 +34,87 @@ import java.util.Scanner;
 public class Gameplay {
     public static int wInt = 0;
     public static int lInt = 0;
-    public static World GameWorld = new World(lInt, wInt);
+    public static World GameWorld;
+
     /* Takes in the user input */
-
-
     static void runGame(Integer objects) {
-        GameWorld.addEntity();
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
         GameWorld.initializeObjects(objects);
         GameWorld.playRound();
     }
 
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        boolean validInput = false;
 
+        while (!validInput) {
+            try {
+                System.out.println("Welcome to the Rock, paper, scissors game \n"); /* This section of code prompts the users to input a length- */
+                System.out.println("What is the width of your matrix?: ");          /* and width for the game matrix*/
+                String w = input.nextLine();
+                System.out.println("What is the length of your matrix?: ");
+                String l = input.nextLine();
 
+                wInt = Integer.parseInt(w);
+                lInt = Integer.parseInt(l);
 
-    public static void main() {
-        try {
-            Scanner input = new Scanner(System.in);                                    /* This section of code prompts the users to input a length- */
-            System.out.println("Welcome to the Rock, paper, scissors game \n");            /* and width for the game matrix*/
-            System.out.println("What is the width of your matrix?: ");
-            String w = input.nextLine();
-            System.out.println("What is the length of your matrix?: ");
-            String l = input.nextLine();
-            wInt = Integer.parseInt(w);
-            if (wInt < 0) {
-                System.out.println("negative input, try again? (y/n)");
-                String c = input.nextLine();
-                if (c.equals("y")){
-                    main();
+                if (wInt < 0 || lInt < 0) {
+                    System.out.println("negative input, try again? (y/n)");
+                    String c = input.nextLine();
+                    if (c.equals("y")) {
+                        continue;
+                    }
+                    return;
+                }
+
+                /* Creates the Game World where the simulation will play */
+                GameWorld = new World(wInt, lInt);
+
+                System.out.println("How many of each rock paper scissors do you want\n" +
+                        "in the world (i.e., three rocks, three papers, three scissors. input: 3)?");
+                String Objects = input.nextLine();
+                int objInts = Integer.parseInt(Objects);
+
+                if (objInts < 0) {
+                    System.out.println("negative input, try again? (y/n)");
+                    String c = input.nextLine();
+                    if (c.equals("y")) {
+                        continue;
+                    }
+                    return;
+                }
+
+                System.out.printf("Added %d rock, %d paper, %d scissors.%n", objInts, objInts, objInts);
+
+                if ((objInts * 3) > (wInt * lInt)) {
+                    System.out.println("too many objects");
+                    System.out.println("try again? (y/n)");
+                    String c = input.nextLine();
+                    if (c.equals("y")) {
+                        continue;
+                    }
+                    return;
+                } else {
+                    runGame(objInts);
+                    validInput = true;
                 }
             }
-            lInt = Integer.parseInt(l);
-            if (lInt < 0) {
-                System.out.println("negative input, try again? (y/n)");
+            catch (NumberFormatException e) {
+                System.out.println("incorrect input, try again? (y/n)");
                 String c = input.nextLine();
-                if (c.equals("y")){
-                    main();
+                if (!c.equals("y")) {
+                    return;
                 }
             }
-            /* Creates the Game World where the simulation will play */
-
-
-
-
-            System.out.println("How many of each rock paper scissors do you want\n" +
-                    "in the world (i.e., three rocks, three papers, three scissors. input: 3)?");
-            String Objects = input.nextLine();
-            int objInts = Integer.parseInt(Objects);
-            System.out.printf("Added %d rock, %d paper, %d scissors.", objInts, objInts, objInts);
-            if ((objInts * 3) > (wInt * lInt)) {
-                System.out.println("too many objects");
-            } else {
-                runGame(objInts);
-            }
-
-
-
-
-        }
-        catch (NumberFormatException e) {
-            System.out.println("incorrect input, try again? (y/n)");
-            Scanner input = new Scanner(System.in);
-            String c = input.nextLine();
-            if (c.equals("y")){
-                main();
+            catch (NegativeArraySizeException e) {
+                System.out.println("negative input, try again? (y/n)");
+                String c = input.nextLine();
+                if (!c.equals("y")) {
+                    return;
+                }
             }
         }
-        catch (NegativeArraySizeException e) {
-            System.out.println("negative input, try again? (y/n)");
-            Scanner input = new Scanner(System.in);
-            String c = input.nextLine();
-            if (c.equals("y")){
-                main();
-            }
-        }
-
-
     }
-
-
 }

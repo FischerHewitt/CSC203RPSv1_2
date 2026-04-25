@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 import static java.lang.Math.random;
 
 /*
@@ -21,6 +24,9 @@ class World{
     public int width;
     public int height;
     Object[][] world;
+    ArrayList<Rock> rocks = new ArrayList<>();
+    ArrayList<Paper> paper = new ArrayList<>();
+    ArrayList<Scissors> scissors = new ArrayList<>();
 
 
 
@@ -42,9 +48,6 @@ class World{
         for (int idxW = 0; idxW < this.width; idxW++){
             for (int idxH = 0; idxH < this.height; idxH++){
                 this.world[idxW][idxH] = null;
-
-
-
 
             }
         }
@@ -77,7 +80,7 @@ class World{
         Point rockPoint = findEmpty(xRock, yRock);  //finds an empty coordinate in the world array
 
         this.world[rockPoint.getPointX()][rockPoint.getPointY()] = new Rock(rockPoint, this.world);
-        //this is a comment
+        this.rocks.add((Rock)this.world[rockPoint.getPointX()][rockPoint.getPointY()]);
     }
 
     /*
@@ -94,6 +97,7 @@ class World{
         Point paperPoint = findEmpty(xPaper, yPaper);  //finds an empty coordinate in the world array
 
         this.world[paperPoint.getPointX()][paperPoint.getPointY()] = new Paper(paperPoint, this.world);
+        this.paper.add((Paper)this.world[paperPoint.getPointX()][paperPoint.getPointY()]);
     }
 
     /*
@@ -109,6 +113,7 @@ class World{
         Point scissorsPoint = findEmpty(xScissors, yScissors); //finds an empty coordinate in the world array
 
         this.world[scissorsPoint.getPointX()][scissorsPoint.getPointY()] = new Scissors(scissorsPoint, this.world);
+        this.scissors.add((Scissors) this.world[scissorsPoint.getPointX()][scissorsPoint.getPointY()]);
     }
 
     /*
@@ -165,25 +170,26 @@ class World{
         printWorld(); // prints the initial world with all the entities
         // runs the game
         while (running) {
-            boolean attackInstance = false; // nobody has attacked anyoone yet
-            // Each entity attacks each other in order of Rock, Paper, then Scissors
-            for (int idxHeight = 0; idxHeight < this.height; idxHeight++) {
-                for (int idxWidth = 0; idxWidth < this.width; idxWidth++) { // has to look at each width first before the height
 
-                    if (world[idxWidth][idxHeight] instanceof Rock) { // checks if it is a rock
-                        ((Rock) world[idxWidth][idxHeight]).rockAttack(); // rock attack
-                        attackInstance = true;
-                    } else if (world[idxWidth][idxHeight] instanceof Paper) { // checks if it is a paper
-                        ((Paper) world[idxWidth][idxHeight]).paperAttack();
-                        attackInstance = true;
-                    } else if (world[idxWidth][idxHeight] instanceof Scissors) { // checks if is it a scissors
-                        ((Scissors) world[idxWidth][idxHeight]).scissorsAttack();
-                        attackInstance = true;
-                    }
+            for (int rockIdx = 0; rockIdx < this.rocks.size(); rockIdx++){
+                if (this.rocks.get(rockIdx).getEntityPosition().getPointX() != -1) {
+                    this.rocks.get(rockIdx).rockAttack();
+                }
+            }
+            for (int paperIdx = 0; paperIdx < this.paper.size(); paperIdx++){
+                if (this.paper.get(paperIdx).getEntityPosition().getPointX() != -1) {
+                    this.paper.get(paperIdx).paperAttack();
+                }
+            }
+            for (int scissorsIdx = 0; scissorsIdx < this.scissors.size(); scissorsIdx++){
+                if (this.scissors.get(scissorsIdx).getEntityPosition().getPointX() != -1) {
+                    this.scissors.get(scissorsIdx).scissorsAttack();
                 }
             }
 
+
             // if somebody attacks someone, I want to see the board updated before the pieces move
+            /*
             if (attackInstance) {
                 printWorld();
                 try {
@@ -192,6 +198,7 @@ class World{
                     Thread.currentThread().interrupt(); // Pauses for 0.5
                 }
             }
+             */
             // Checks to see if Scissors Has Won
             if (Rock.rockCount == 0 && Paper.paperCount == 0) {
                 running = false;
@@ -212,21 +219,21 @@ class World{
             }
 
             // Moves each object
-            for (int idxHeight = 0; idxHeight < this.height; idxHeight++) {
-                for (int idxWidth = 0; idxWidth < this.width; idxWidth++) { // has to look at each width first before the height
-                    if (world[idxWidth][idxHeight] instanceof Rock) { // checks if it is a rock
-                        ((Rock) world[idxWidth][idxHeight]).moveRock(); // move rock
-                    } else if (world[idxWidth][idxHeight] instanceof Paper) { // checks if it is a paper
-                        ((Paper) world[idxWidth][idxHeight]).movePaper(); // move paper
-                    } else if (world[idxWidth][idxHeight] instanceof Scissors) { // checks if is it a scissors
-                        ((Scissors) world[idxWidth][idxHeight]).moveScissors(); // move scissors
-                    }
+            for (int rockIdx = 0; rockIdx < this.rocks.size(); rockIdx++){
+                if (this.rocks.get(rockIdx).getEntityPosition().getPointX() != -1) {
+                    this.rocks.get(rockIdx).moveRock();
                 }
             }
-
-
-
-
+            for (int paperIdx = 0; paperIdx < this.paper.size(); paperIdx++){
+                if (this.paper.get(paperIdx).getEntityPosition().getPointX() != -1) {
+                    this.paper.get(paperIdx).movePaper();
+                }
+            }
+            for (int scissorsIdx = 0; scissorsIdx < this.scissors.size(); scissorsIdx++){
+                if (this.scissors.get(scissorsIdx).getEntityPosition().getPointX() != -1) {
+                    this.scissors.get(scissorsIdx).moveScissors();
+                }
+            }
 
             printWorld();
             try {
