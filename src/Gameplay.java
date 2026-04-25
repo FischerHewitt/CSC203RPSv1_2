@@ -1,3 +1,22 @@
+
+/*
+    Developers: Fischer Hewitt, Sameeka Molugu, Mason Brown
+    Date: 04/20/2026
+    Project 2: RPSv1
+    Description: Build a rock paper scissors game that has a world full of rock, paper, and scissors, then they move
+    around randomly moving one step at a time (and they are allowed to move in any direction including up, down, left, right
+    and the respective diagonals) and the last object standing is the winner.
+    world view print view with coordinate labels
+   0 1 2 3 (x)      ^ 0 1 2
+  +-+-+-+-+           ^ ^ ^
+0 | | | | |        0
+  +-+-+-+-+           - - -
+1 | | | | |        1
+  +-+-+-+-+           - - -
+2 | | | | |        2
+  +-+-+-+-+           v v v
+(y)                          v
+ */
 //Steps
 // 1. Ask for user input for dimensions (ex. width: 3, height: 3)
 // 2. Ask for user input for entities ("How many of each rock paper scissors do you want
@@ -8,27 +27,6 @@ import com.sun.jdi.IntegerType;
 
 
 import java.util.Scanner;
-/*
-   Developers: Fischer Hewitt, Sameeka Molugu, Mason Brown
-   Date: 04/20/2026
-   Project 2: RPSv1
-   Description: Build a rock paper scissors game that has a world full of rock, paper, and scissors, then they move
-   around randomly and the last object standing is the winner.
-   world view print view with coordinate labels
-  0 1 2 3 (x)      ^ 0 1 2
- +-+-+-+-+           ^ ^ ^
-0 | | | | |        0
- +-+-+-+-+           - - -
-1 | | | | |        1
- +-+-+-+-+           - - -
-2 | | | | |        2
- +-+-+-+-+           v v v
-(y)                          v
-*/
-
-
-
-
 
 
 public class Gameplay {
@@ -51,8 +49,8 @@ public class Gameplay {
 
         while (!validInput) {
             try {
-                System.out.println("Welcome to the Rock, paper, scissors game \n"); /* This section of code prompts the users to input a length- */
-                System.out.println("What is the width of your matrix?: ");          /* and width for the game matrix*/
+                System.out.println("Welcome to the Rock, paper, scissors game \n"); // This section of code prompts the users to input a length-
+                System.out.println("What is the width of your matrix?: ");          // and width for the game matrix
                 String w = input.nextLine();
                 System.out.println("What is the length of your matrix?: ");
                 String l = input.nextLine();
@@ -69,7 +67,7 @@ public class Gameplay {
                     return;
                 }
 
-                /* Creates the Game World where the simulation will play */
+                // Creates the Game World where the simulation will play
                 GameWorld = new World(wInt, lInt);
 
                 System.out.println("How many of each rock paper scissors do you want\n" +

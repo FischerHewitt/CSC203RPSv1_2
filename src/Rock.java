@@ -3,7 +3,8 @@
     Date: 04/20/2026
     Project 2: RPSv1
     Description: Build a rock paper scissors game that has a world full of rock, paper, and scissors, then they move
-    around randomly and the last object standing is the winner.
+    around randomly moving one step at a time (and they are allowed to move in any direction including up, down, left, right
+    and the respective diagonals) and the last object standing is the winner.
     world view print view with coordinate labels
    0 1 2 3 (x)      ^ 0 1 2
   +-+-+-+-+           ^ ^ ^
@@ -118,12 +119,13 @@ public class Rock {
     /*
         Attacks a scissors object if it is in a neighboring cell
         Input: none
-        Result: Adjacent scissors is removed from the world and scissorsCount decreases by 1
-        Returns: void
+        Result: Adjacent scissors is removed from the world and scissorsCount decreases by 1 and returns if it attacked someone or not
+        Returns: boolean
     */
-    public void rockAttack() {
+    public boolean rockAttack() {
         ArrayList<Point> neighbors = checkNeighbors();
         ArrayList<Point> validNeighbors = new ArrayList<>();
+        boolean attackInstance = false;
         for (Point neighbor: neighbors) {
             if (world[neighbor.getPointX()][neighbor.getPointY()] instanceof Scissors) {
                 validNeighbors.add(neighbor);
@@ -135,8 +137,10 @@ public class Rock {
                 ((Scissors) world[p.getPointX()][p.getPointY()]).setEntityPosition(new Point(-1, -1));
                 world[p.getPointX()][p.getPointY()] = null;
                 Scissors.scissorsCount--;
+                attackInstance = true;
             }
         }
+        return attackInstance;
     }
 
 
