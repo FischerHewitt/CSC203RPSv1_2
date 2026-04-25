@@ -63,7 +63,7 @@ public class Gameplay {
                 if (wInt < 0 || lInt < 0) {
                     System.out.println("negative input, try again? (y/n)");
                     String c = input.nextLine();
-                    if (c.equals("y")) {
+                    if (c.equalsIgnoreCase("y")) {
                         continue;
                     }
                     return;
