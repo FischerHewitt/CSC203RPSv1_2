@@ -63,6 +63,7 @@ public class Gameplay {
                 // sets world height
                 hInt = Integer.parseInt(h);
 
+                // checks to see if height or width are negative
                 if (wInt < 0 || hInt < 0) {
                     System.out.println("negative input, try again? (y/n)");
                     String c = input.nextLine();
@@ -75,11 +76,13 @@ public class Gameplay {
                 // Creates the Game World where the simulation will play
                 GameWorld = new World(wInt, hInt);
 
+                // asks for number of entities
                 System.out.println("How many of each rock paper scissors do you want\n" +
                         "in the world (i.e., three rocks, three papers, three scissors. input: 3)?");
                 String Objects = input.nextLine();
+                // integers objects
                 int objInts = Integer.parseInt(Objects);
-
+                // checks to see if objects input is negative
                 if (objInts < 0) {
                     System.out.println("negative input, try again? (y/n)");
                     String c = input.nextLine();
@@ -89,8 +92,10 @@ public class Gameplay {
                     return;
                 }
 
+                // prints this to tell the user that we are tring to add entities
                 System.out.printf("Added %d rock, %d paper, %d scissors.%n", objInts, objInts, objInts);
 
+                // checks to see if the amount of objects the user requested is to many for the world
                 if ((objInts * 3) > (wInt * hInt)) {
                     System.out.println("too many objects");
                     System.out.println("try again? (y/n)");
@@ -101,9 +106,11 @@ public class Gameplay {
                     return;
                 } else {
                     runGame(objInts);
+                    // stops the while loop
                     validInput = true;
                 }
             }
+            // catches an error if they put a string that can not be converted into a number
             catch (NumberFormatException e) {
                 System.out.println("incorrect input, try again? (y/n)");
                 String c = input.nextLine();
@@ -111,6 +118,7 @@ public class Gameplay {
                     return;
                 }
             }
+            // catches an error if the array is negative so we can not create the array
             catch (NegativeArraySizeException e) {
                 System.out.println("negative input, try again? (y/n)");
                 String c = input.nextLine();
