@@ -481,6 +481,7 @@ public class TestCases {
         world18.printWorld();
 
 
+
         // Test 19
         // Test paperAttack() method. Paper starting at (1,1)
         System.out.println("\n\nTest 19:\nTesting paperAttack(). Paper is at (1,1).");
