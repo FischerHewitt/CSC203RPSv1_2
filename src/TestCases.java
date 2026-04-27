@@ -518,5 +518,260 @@ public class TestCases {
         System.out.println("Actual output:");
         ((Paper) world19.world[1][1]).paperAttack();
         world19.printWorld();
+
+        // Test 20
+        // Test getEntityPosition() method. Rock starting at (1,1)
+        System.out.println("\n\nTest 20:\nTesting getEntityPosition(). Rock is placed at (1,1).");
+        System.out.println(
+                """
+        Expected output:
+        x=1, y=1
+        """);
+        World world20 = new World(3, 3);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        world20.world[1][1] = new Rock(new Point(1, 1), world20.world);
+        Point pos20 = ((Rock) world20.world[1][1]).getEntityPosition();
+        System.out.println("Actual output:");
+        System.out.printf("x=%d, y=%d %n%n", pos20.getPointX(), pos20.getPointY());
+
+
+        // Test 21
+        // Test getEntityPosition() method. Rock starting at (0,0) - corner case
+        System.out.println("\n\nTest 21:\nTesting getEntityPosition(). Rock is placed at (0,0) corner.");
+        System.out.println(
+                """
+        Expected output:
+        x=0, y=0
+        """);
+        World world21 = new World(3, 3);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        world21.world[0][0] = new Rock(new Point(0, 0), world21.world);
+        Point pos21 = ((Rock) world21.world[0][0]).getEntityPosition();
+        System.out.println("Actual output:");
+        System.out.printf("x=%d, y=%d %n%n", pos21.getPointX(), pos21.getPointY());
+
+
+        // Test 22
+        // Test setEntityPosition() method. Rock starting at (1,1), moved to (2,2)
+        System.out.println("\n\nTest 22:\nTesting setEntityPosition(). Rock is at (1,1), set to (2,2).");
+        System.out.println(
+                """
+        Expected output:
+        x=2, y=2
+        """);
+        World world22 = new World(3, 3);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        world22.world[1][1] = new Rock(new Point(1, 1), world22.world);
+        ((Rock) world22.world[1][1]).setEntityPosition(new Point(2, 2));
+        Point pos22 = ((Rock) world22.world[1][1]).getEntityPosition();
+        System.out.println("Actual output:");
+        System.out.printf("x=%d, y=%d %n%n", pos22.getPointX(), pos22.getPointY());
+
+
+        // Test 23
+        // Test setEntityPosition() method. Rock set to (-1,-1) simulating removal
+        System.out.println("\n\nTest 23:\nTesting setEntityPosition(). Rock set to (-1,-1) simulating removal.");
+        System.out.println(
+                """
+        Expected output:
+        x=-1, y=-1
+        """);
+        World world23 = new World(3, 3);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        world23.world[0][0] = new Rock(new Point(0, 0), world23.world);
+        ((Rock) world23.world[0][0]).setEntityPosition(new Point(-1, -1));
+        Point pos23 = ((Rock) world23.world[0][0]).getEntityPosition();
+        System.out.println("Actual output:");
+        System.out.printf("x=%d, y=%d %n%n", pos23.getPointX(), pos23.getPointY());
+
+
+        // Test 24
+        // Test checkNeighbors() method. Rock at center (1,1) in a 3x3 world - should return 9
+        System.out.println("\n\nTest 24:\nTesting checkNeighbors(). Rock at (1,1) in 3x3 world.");
+        System.out.println(
+                """
+        Expected output:
+        Neighbor count = 9
+        """);
+        World world24 = new World(3, 3);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        world24.world[1][1] = new Rock(new Point(1, 1), world24.world);
+        int neighborCount24 = ((Rock) world24.world[1][1]).checkNeighbors().size();
+        System.out.println("Actual output:");
+        System.out.printf("Neighbor count = %d %n%n", neighborCount24);
+
+
+        // Test 25
+        // Test checkNeighbors() method. Rock at corner (0,0) in a 3x3 world - should return 4
+        System.out.println("\n\nTest 25:\nTesting checkNeighbors(). Rock at corner (0,0) in 3x3 world.");
+        System.out.println(
+                """
+        Expected output:
+        Neighbor count = 4
+        """);
+        World world25 = new World(3, 3);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        world25.world[0][0] = new Rock(new Point(0, 0), world25.world);
+        int neighborCount25 = ((Rock) world25.world[0][0]).checkNeighbors().size();
+        System.out.println("Actual output:");
+        System.out.printf("Neighbor count = %d %n%n", neighborCount25);
+
+
+        // Test 26
+        // Test checkNeighbors() method. Rock at edge (1,0) in a 3x3 world - should return 6
+        System.out.println("\n\nTest 26:\nTesting checkNeighbors(). Rock at edge (1,0) in 3x3 world.");
+        System.out.println(
+                """
+        Expected output:
+        Neighbor count = 6
+        """);
+        World world26 = new World(3, 3);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        world26.world[1][0] = new Rock(new Point(1, 0), world26.world);
+        int neighborCount26 = ((Rock) world26.world[1][0]).checkNeighbors().size();
+        System.out.println("Actual output:");
+        System.out.printf("Neighbor count = %d %n%n", neighborCount26);
+
+
+        // Test 27
+        // Test getEntityPosition() method. Scissors placed at (1,1)
+        System.out.println("\n\nTest 27:\nTesting getEntityPosition(). Scissors is placed at (1,1).");
+        System.out.println(
+                """
+        Expected output:
+        x=1, y=1
+        """);
+        World world27 = new World(3, 3);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        world27.world[1][1] = new Scissors(new Point(1, 1), world27.world);
+        Point pos27 = ((Scissors) world27.world[1][1]).getEntityPosition();
+        System.out.println("Actual output:");
+        System.out.printf("x=%d, y=%d %n%n", pos27.getPointX(), pos27.getPointY());
+
+
+        // Test 28
+        // Test getEntityPosition() method. Scissors placed at (0,0) - corner case
+        System.out.println("\n\nTest 28:\nTesting getEntityPosition(). Scissors is placed at (0,0) corner.");
+        System.out.println(
+                """
+        Expected output:
+        x=0, y=0
+        """);
+        World world28 = new World(3, 3);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        world28.world[0][0] = new Scissors(new Point(0, 0), world28.world);
+        Point pos28 = ((Scissors) world28.world[0][0]).getEntityPosition();
+        System.out.println("Actual output:");
+        System.out.printf("x=%d, y=%d %n%n", pos28.getPointX(), pos28.getPointY());
+
+
+        // Test 29
+        // Test setEntityPosition() method. Scissors at (1,1), set to (2,2)
+        System.out.println("\n\nTest 29:\nTesting setEntityPosition(). Scissors is at (1,1), set to (2,2).");
+        System.out.println(
+                """
+        Expected output:
+        x=2, y=2
+        """);
+        World world29 = new World(3, 3);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        world29.world[1][1] = new Scissors(new Point(1, 1), world29.world);
+        ((Scissors) world29.world[1][1]).setEntityPosition(new Point(2, 2));
+        Point pos29 = ((Scissors) world29.world[1][1]).getEntityPosition();
+        System.out.println("Actual output:");
+        System.out.printf("x=%d, y=%d %n%n", pos29.getPointX(), pos29.getPointY());
+
+
+        // Test 30
+        // Test setEntityPosition() method. Scissors set to (-1,-1) simulating removal
+        System.out.println("\n\nTest 30:\nTesting setEntityPosition(). Scissors set to (-1,-1) simulating removal.");
+        System.out.println(
+                """
+        Expected output:
+        x=-1, y=-1
+        """);
+        World world30 = new World(3, 3);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        world30.world[0][0] = new Scissors(new Point(0, 0), world30.world);
+        ((Scissors) world30.world[0][0]).setEntityPosition(new Point(-1, -1));
+        Point pos30 = ((Scissors) world30.world[0][0]).getEntityPosition();
+        System.out.println("Actual output:");
+        System.out.printf("x=%d, y=%d %n%n", pos30.getPointX(), pos30.getPointY());
+
+
+        // Test 31
+        // Test checkNeighbors() method. Scissors at center (1,1) in a 3x3 world - should return 9
+        System.out.println("\n\nTest 31:\nTesting checkNeighbors(). Scissors at (1,1) in 3x3 world.");
+        System.out.println(
+                """
+        Expected output:
+        Neighbor count = 9
+        """);
+        World world31 = new World(3, 3);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        world31.world[1][1] = new Scissors(new Point(1, 1), world31.world);
+        int neighborCount31 = ((Scissors) world31.world[1][1]).checkNeighbors().size();
+        System.out.println("Actual output:");
+        System.out.printf("Neighbor count = %d %n%n", neighborCount31);
+
+
+        // Test 32
+        // Test checkNeighbors() method. Scissors at corner (0,0) in a 3x3 world - should return 4
+        System.out.println("\n\nTest 32:\nTesting checkNeighbors(). Scissors at corner (0,0) in 3x3 world.");
+        System.out.println(
+                """
+        Expected output:
+        Neighbor count = 4
+        """);
+        World world32 = new World(3, 3);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        world32.world[0][0] = new Scissors(new Point(0, 0), world32.world);
+        int neighborCount32 = ((Scissors) world32.world[0][0]).checkNeighbors().size();
+        System.out.println("Actual output:");
+        System.out.printf("Neighbor count = %d %n%n", neighborCount32);
+
+
+        // Test 33
+        // Test checkNeighbors() method. Scissors at edge (1,0) in a 3x3 world - should return 6
+        System.out.println("\n\nTest 33:\nTesting checkNeighbors(). Scissors at edge (1,0) in 3x3 world.");
+        System.out.println(
+                """
+        Expected output:
+        Neighbor count = 6
+        """);
+        World world33 = new World(3, 3);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        world33.world[1][0] = new Scissors(new Point(1, 0), world33.world);
+        int neighborCount33 = ((Scissors) world33.world[1][0]).checkNeighbors().size();
+        System.out.println("Actual output:");
+        System.out.printf("Neighbor count = %d %n%n", neighborCount33);
     }
 }
