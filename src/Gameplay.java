@@ -19,8 +19,8 @@
  */
 //Steps
 // 1. Ask for user input for dimensions (ex. width: 3, height: 3)
-// 2. Ask for user input for entities ("How many of each rock paper scissors do you want
-//in the world (ie, three rocks, three papers, three scissors. input: 3)
+// 2. Ask for user input for entities "How many of each rock paper scissors do you want
+//in the world" (ie, three rocks, three papers, three scissors. input: 3)
 // 3. check if the amount of rocks, papers, and scissors provided will fit in the world space
 // 4. run world function and print result
 import com.sun.jdi.IntegerType;
