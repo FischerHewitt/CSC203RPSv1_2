@@ -96,11 +96,14 @@ public class Paper {
     public void movePaper(){
         ArrayList<Point> neighbors = checkNeighbors();
         ArrayList<Point> validNeighbors = new ArrayList<>();
+        // Looks for all positions around the paper that are null and adds them to valid neighbors
         for (Point neighbor: neighbors){
             if (world[neighbor.getPointX()][neighbor.getPointY()] == null){
                 validNeighbors.add(neighbor);
             }
         }
+
+        // if the list is not empty, then it will move to a new position
         if (validNeighbors.size() > 0) {
             // Pick a random position from the list,
             Random rand = new Random();
@@ -124,20 +127,27 @@ public class Paper {
         ArrayList<Point> neighbors = checkNeighbors();
         ArrayList<Point> validNeighbors = new ArrayList<>();
         boolean attackInstance = false;
+        // checks for neighbors that are Rock
         for (Point neighbor: neighbors) {
             if (world[neighbor.getPointX()][neighbor.getPointY()] instanceof Rock) {
                 validNeighbors.add(neighbor);
             }
         }
 
+        // For each rock neighbor, it will remove it from the world
         for (Point p : validNeighbors) {
             if(world[p.getPointX()][p.getPointY()] instanceof Rock){
+                // Sets rock position to (-1, -1)
                 ((Rock) world[p.getPointX()][p.getPointY()]).setEntityPosition(new Point(-1, -1));
+                // Sets the rock in the world to null
                 world[p.getPointX()][p.getPointY()] = null;
+                // Subtracts 1 from the rock total
                 Rock.rockCount--;
+                // Sets the attack instance to True
                 attackInstance = true;
             }
         }
+        // Returns if it attacked someone or not
         return attackInstance;
     }
 }

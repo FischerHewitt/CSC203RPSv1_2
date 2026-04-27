@@ -97,11 +97,14 @@ public class Rock {
     public void moveRock(){
         ArrayList<Point> neighbors = checkNeighbors();
         ArrayList<Point> validNeighbors = new ArrayList<>();
+        // Looks for all positions around the rock that are null and adds them to valid neighbors
         for (Point neighbor: neighbors){
             if (world[neighbor.getPointX()][neighbor.getPointY()] == null){
                 validNeighbors.add(neighbor);
             }
         }
+
+        // if the list is not empty, then it will move to a new position
         if (validNeighbors.size() > 0) {
             // Pick a random position from the list,
             Random rand = new Random();
@@ -126,20 +129,27 @@ public class Rock {
         ArrayList<Point> neighbors = checkNeighbors();
         ArrayList<Point> validNeighbors = new ArrayList<>();
         boolean attackInstance = false;
+        // checks for neighbors that are Scissors
         for (Point neighbor: neighbors) {
             if (world[neighbor.getPointX()][neighbor.getPointY()] instanceof Scissors) {
                 validNeighbors.add(neighbor);
             }
         }
 
+        // For each scissors neighbors, it will remove it from the world
         for (Point p : validNeighbors) {
             if(world[p.getPointX()][p.getPointY()] instanceof Scissors){
+                // Sets scissor position to (-1, -1)
                 ((Scissors) world[p.getPointX()][p.getPointY()]).setEntityPosition(new Point(-1, -1));
+                // Sets the rock in the world to null
                 world[p.getPointX()][p.getPointY()] = null;
+                // Subtracts 1 from the rock total
                 Scissors.scissorsCount--;
+                // Sets the attack instance to True
                 attackInstance = true;
             }
         }
+        // Returns if it attacked someone or not
         return attackInstance;
     }
 

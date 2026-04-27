@@ -96,11 +96,13 @@ public class Scissors {
     public void moveScissors(){
         ArrayList<Point> neighbors = checkNeighbors();
         ArrayList<Point> validNeighbors = new ArrayList<>();
+        // Checks to see which neighbors are empty/valid spaces to move
         for (Point neighbor: neighbors){
             if (world[neighbor.getPointX()][neighbor.getPointY()] == null){
                 validNeighbors.add(neighbor);
             }
         }
+        // if valid neighbors is not empty, then move to a new position
         if (validNeighbors.size() > 0) {
             // Pick a random position from the list,
             Random rand = new Random();
@@ -123,20 +125,27 @@ public class Scissors {
         ArrayList<Point> neighbors = checkNeighbors();
         ArrayList<Point> validNeighbors = new ArrayList<>();
         boolean attackInstance = false;
+        // Evaluates which neighbors are paper, and then adds them to valid neighbors
         for (Point neighbor: neighbors) {
             if (world[neighbor.getPointX()][neighbor.getPointY()] instanceof Paper) {
                 validNeighbors.add(neighbor);
             }
         }
 
+        // for each neighbor that is paper, it will eliminate it from the world
         for (Point p : validNeighbors) {
             if(world[p.getPointX()][p.getPointY()] instanceof Paper){
+                // sets its position to (-1, -1)
                 ((Paper) world[p.getPointX()][p.getPointY()]).setEntityPosition(new Point(-1, -1));
+                // Sets the point to null
                 world[p.getPointX()][p.getPointY()] = null;
+                // reduces the paper count by 1
                 Paper.paperCount--;
+                // Sets attack instance to true
                 attackInstance = true;
             }
         }
+        // returns true if there was an attack and false if there was not
         return attackInstance;
     }
 }

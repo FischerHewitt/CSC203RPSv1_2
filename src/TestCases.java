@@ -1,32 +1,37 @@
 /*
-    Developers: Fischer Hewitt, Sameeka Molugu, Mason Brown
-    Date: 04/20/2026
-    Project 2: RPSv1
-    Description: Build a rock paper scissors game that has a world full of rock, paper, and scissors, then they move
-    around randomly moving one step at a time (and they are allowed to move in any direction including up, down, left, right
-    and the respective diagonals) and the last object standing is the winner.
-    world view print view with coordinate labels
-   0 1 2 3 (x)      ^ 0 1 2
-  +-+-+-+-+           ^ ^ ^
+   Developers: Fischer Hewitt, Sameeka Molugu, Mason Brown
+   Date: 04/20/2026
+   Project 2: RPSv1
+   Description: Build a rock paper scissors game that has a world full of rock, paper, and scissors, then they move
+   around randomly moving one step at a time (and they are allowed to move in any direction including up, down, left, right
+   and the respective diagonals) and the last object standing is the winner.
+   world view print view with coordinate labels
+  0 1 2 3 (x)      ^ 0 1 2
+ +-+-+-+-+           ^ ^ ^
 0 | | | | |        0
-  +-+-+-+-+           - - -
+ +-+-+-+-+           - - -
 1 | | | | |        1
-  +-+-+-+-+           - - -
+ +-+-+-+-+           - - -
 2 | | | | |        2
-  +-+-+-+-+           v v v
+ +-+-+-+-+           v v v
 (y)                          v
+
+
 
 
 Testing Framework:
 System.out.println("Testing moveRock() method. Current position ( %d, %d )." ,
-        getEntityPosition().x, getEntityPosition().y );
-        System.out.println("Expected output one of: " +
-                "( 3, 7 ), ( 3, 6 ), ( 3, 8 ), ( 4, 6 ), ( 4, 8 ), ( 5, 7 ), (5, 6 ), ( 5, 8 )");
-        System.out.printf("Actual output: (%d, %d).", getEntityPosition().x, getEntityPosition().y );
- */
+       getEntityPosition().x, getEntityPosition().y );
+       System.out.println("Expected output one of: " +
+               "( 3, 7 ), ( 3, 6 ), ( 3, 8 ), ( 4, 6 ), ( 4, 8 ), ( 5, 7 ), (5, 6 ), ( 5, 8 )");
+       System.out.printf("Actual output: (%d, %d).", getEntityPosition().x, getEntityPosition().y );
+*/
+
+
 
 
 import java.util.Arrays;
+
 
 public class TestCases {
     public static void main(String[] args){
@@ -37,6 +42,7 @@ public class TestCases {
         System.out.print("Actual output:");
         World world1 = new World(2, 3); // creates a new world with width=2 height=3
         System.out.printf("w=%d, h=%d %n%n", world1.world.length, world1.world[0].length); //formats with width and height
+
 
         // Test 02
         // Testing printWorld() with width=2, height=3, world is empty
@@ -55,6 +61,7 @@ public class TestCases {
         """);
         System.out.println("Actual output:");
         world1.printWorld(); //prints the world
+
 
         // Test 03
         // Testing Print world with objects in the world.
@@ -83,6 +90,7 @@ public class TestCases {
         System.out.println("Actual output:");
         world2.printWorld();
 
+
         // Test 04
         // Test addRock() method. w=2, h=3, Rocks=1
         System.out.println("\n\nTest 04:\nTesting addRock() method. w=2, h=3, Rocks=1");
@@ -90,13 +98,13 @@ public class TestCases {
                 """
         Expected output:
         World:
-        +-+-+or+-+-+or+-+-+or+-+-+or+-+-+or+-+-+ 
+        +-+-+or+-+-+or+-+-+or+-+-+or+-+-+or+-+-+
         |R| |  | |R|  | | |  | | |  | | |  | | |
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         | | |  | | |  |R| |  | |R|  | | |  | | |
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         | | |  | | |  | | |  | | |  |R| |  | |R|
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         """);
         Rock.rockCount = 0;
         Paper.paperCount = 0;
@@ -105,6 +113,7 @@ public class TestCases {
         System.out.println("Actual output:");
         world1.printWorld();
 
+
         // Test 05
         // Test addPaper() method. w=2, h=3, paper=1
         System.out.println("\n\nTest 05:\nTesting addPaper() method. w=2, h=3, Paper=1");
@@ -112,13 +121,13 @@ public class TestCases {
                 """
         Expected output:
         World:
-        +-+-+or+-+-+or+-+-+or+-+-+or+-+-+or+-+-+ 
+        +-+-+or+-+-+or+-+-+or+-+-+or+-+-+or+-+-+
         |P| |  | |P|  | | |  | | |  | | |  | | |
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         | | |  | | |  |P| |  | |P|  | | |  | | |
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         | | |  | | |  | | |  | | |  |P| |  | |P|
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         """);
         World world3 = new World(2, 3);
         Rock.rockCount = 0;
@@ -128,6 +137,7 @@ public class TestCases {
         System.out.println("Actual output:");
         world3.printWorld();
 
+
         // Test 06
         // Test addScissors() method. w=2, h=3, scissors = 1
         System.out.println("\n\nTest 06:\nTesting addScissors() method. w=2, h=3, Scissors=1");
@@ -135,13 +145,13 @@ public class TestCases {
                 """
         Expected output:
         World:
-        +-+-+or+-+-+or+-+-+or+-+-+or+-+-+or+-+-+ 
+        +-+-+or+-+-+or+-+-+or+-+-+or+-+-+or+-+-+
         |S| |  | |S|  | | |  | | |  | | |  | | |
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         | | |  | | |  |S| |  | |S|  | | |  | | |
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         | | |  | | |  | | |  | | |  |S| |  | |S|
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         """);
         World world4 = new World(2, 3);
         Rock.rockCount = 0;
@@ -150,6 +160,7 @@ public class TestCases {
         world4.addScissors();
         System.out.println("Actual output:");
         world4.printWorld();
+
 
         // Test 07
         // Test findEmpty() method indirectly using world1. w=2, h=3, Rocks=12
@@ -182,6 +193,8 @@ public class TestCases {
         world7.printWorld();
 
 
+
+
         // Test 08
         // Test findEmpty() method indirectly using world1. w=2, h=3, Rocks=5
         System.out.println("\n\nTest 08:\nTesting findEmpty() method. w=2, h=3, Rocks=5");
@@ -189,13 +202,13 @@ public class TestCases {
                 """
         Expected output:
         World:
-        +-+-+or+-+-+or+-+-+or+-+-+or+-+-+or+-+-+ 
+        +-+-+or+-+-+or+-+-+or+-+-+or+-+-+or+-+-+
         |R|R|  |R|R|  |R|R|  |R|R|  |R| |  | |R|
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         |R|R|  |R|R|  |R| |  | |R|  |R|R|  |R|R|
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         |R| |  | |R|  |R|R|  |R|R|  |R|R|  |R|R|
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         """);
         Rock.rockCount = 1;
         Paper.paperCount = 0;
@@ -206,6 +219,7 @@ public class TestCases {
         world1.addRock();
         System.out.println("Actual output:");
         world1.printWorld();
+
 
         // Test 09
         // Test getRandomWidth() and getRandomHeight() method. w=2, h=3
@@ -219,6 +233,7 @@ public class TestCases {
         System.out.println("Actual output:");
         System.out.printf("getRandomWidth = %d%n" +
                 "getRandomHeight = %d", world1.getRandomWidth(), world1.getRandomHeight());
+
 
         // Test 10
         // Test initializeObjects method.
@@ -243,6 +258,7 @@ public class TestCases {
         world10.initializeObjects(2);
         world10.printWorld();
 
+
         // Test 11
         // Test moveRock() method. Rock starting at (1,1)
         System.out.println("\n\nTest 11:\nTesting moveRock() method, starting at (1,1).");
@@ -250,13 +266,13 @@ public class TestCases {
                 """
         Expected output:
         ex:
-        +-+-+or+-+-+or+-+-+or+-+-+or+-+-+or+-+-+ 
+        +-+-+or+-+-+or+-+-+or+-+-+or+-+-+or+-+-+
         |R| |  | |R|  | | |  | | |  | | |  | | |
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         | | |  | | |  |R| |  | |R|  | | |  | | |
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         | | |  | | |  | | |  | | |  |R| |  | |R|
-        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+ 
+        +-+-+  +-+-+  +-+-+  +-+-+  +-+-+  +-+-+
         """);
         System.out.println("Actual output:");
         World world11 = new World(2, 3);
@@ -266,6 +282,7 @@ public class TestCases {
         world11.world[1][1] = new Rock(new Point(1,1), world11.world);
         ((Rock) world11.world[1][1]).moveRock();
         world11.printWorld();
+
 
         // Test 12
         // Test movePaper() method. Paper starting at (1,1)
@@ -291,6 +308,7 @@ public class TestCases {
         ((Paper) world12.world[1][1]).movePaper();
         world12.printWorld();
 
+
         // Test 13
         // Test moveScissors() method. Scissors starting at (0,0)
         System.out.println("\n\nTest 13:\nTesting moveScissors() method, starting at (0,0).");
@@ -315,6 +333,7 @@ public class TestCases {
         ((Scissors) world13.world[0][0]).moveScissors();
         world13.printWorld();
 
+
         // Test 14
         // Test moveRock() method. Rock starting at (1,1) and seeing if it stays at 1,1 if its blocked in
         System.out.println("\n\nTest 14:\nTesting moveRock() method, starting at (1,1), seeing if it stays at (1,1).");
@@ -337,6 +356,7 @@ public class TestCases {
         System.out.println("Actual output:");
         world7.printWorld();
 
+
         // Test 15
 // Test movePaper() method. Paper at (1,1) blocked in
         System.out.println("\n\nTest 15:\nTesting movePaper() method, starting at (1,1), blocked in.");
@@ -353,10 +373,12 @@ public class TestCases {
         +-+-+-+
         """);
 
+
         World world15 = new World(3, 3);
         Rock.rockCount = 0;
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
+
 
         // Fill entire grid with Paper
         for (int x15 = 0; x15 < 3; x15++) {
@@ -365,10 +387,12 @@ public class TestCases {
             }
         }
 
+
         // Try to move center Paper
         ((Paper) world15.world[1][1]).movePaper();
         System.out.println("Actual output:");
         world15.printWorld();
+
 
         // Test 16
         // Test moveScissors() method. Scissors at (1,1) blocked in
@@ -386,10 +410,12 @@ public class TestCases {
         +-+-+-+
         """);
 
+
         World world16 = new World(3, 3);
         Rock.rockCount = 0;
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
+
 
         // Fill entire grid with Scissors
         for (int x16 = 0; x16 < 3; x16++) {
@@ -398,10 +424,13 @@ public class TestCases {
             }
         }
 
+
         // Try to move center Scissors
         ((Scissors) world16.world[1][1]).moveScissors();
         System.out.println("Actual output:");
         world16.printWorld();
+
+
 
 
         // Test 17
@@ -426,6 +455,7 @@ public class TestCases {
         Scissors.scissorsCount = 0;
         world17.world[1][1] = new Scissors(new Point(1,1), world17.world);
 
+
         // Add Paper to all 8 surrounding spaces
         world17.world[0][0] = new Paper(new Point(0,0), world17.world);
         world17.world[0][1] = new Paper(new Point(0,1), world17.world);
@@ -436,11 +466,13 @@ public class TestCases {
         world17.world[2][1] = new Paper(new Point(2,1), world17.world);
         world17.world[2][2] = new Paper(new Point(2,2), world17.world);
 
+
         System.out.println("Added Paper:");
         world17.printWorld();
         System.out.println("Actual output:");
         ((Scissors) world17.world[1][1]).scissorsAttack();
         world17.printWorld();
+
 
         // Test 18
         // Test rockAttack() method. Rock starting at (1,1)
@@ -464,6 +496,7 @@ public class TestCases {
         Scissors.scissorsCount = 0;
         world18.world[1][1] = new Rock(new Point(1,1), world18.world);
 
+
         // Add Scissors to all 8 surrounding spaces
         world18.world[0][0] = new Scissors(new Point(0,0), world18.world);
         world18.world[0][1] = new Scissors(new Point(0,1), world18.world);
@@ -474,11 +507,15 @@ public class TestCases {
         world18.world[2][1] = new Scissors(new Point(2,1), world18.world);
         world18.world[2][2] = new Scissors(new Point(2,2), world18.world);
 
+
         System.out.println("Added Scissors:");
         world18.printWorld();
         System.out.println("Actual output:");
         ((Rock) world18.world[1][1]).rockAttack();
         world18.printWorld();
+
+
+
 
 
 
@@ -504,6 +541,7 @@ public class TestCases {
         Scissors.scissorsCount = 0;
         world19.world[1][1] = new Paper(new Point(1,1), world19.world);
 
+
         // Add Rocks to all 8 surrounding spaces
         world19.world[0][0] = new Rock(new Point(0,0), world19.world);
         world19.world[0][1] = new Rock(new Point(0,1), world19.world);
@@ -514,14 +552,18 @@ public class TestCases {
         world19.world[2][1] = new Rock(new Point(2,1), world19.world);
         world19.world[2][2] = new Rock(new Point(2,2), world19.world);
 
+
         System.out.println("Added Rocks:");
         world19.printWorld();
         System.out.println("Actual output:");
         ((Paper) world19.world[1][1]).paperAttack();
         world19.printWorld();
 
-        // Test 20
-        // Test getEntityPosition() method. Rock starting at (1,1)
+
+
+
+// Test 20
+        // getEntityPosition for rock at 1,1
         System.out.println("\n\nTest 20:\nTesting getEntityPosition(). Rock is placed at (1,1).");
         System.out.println(
                 """
@@ -533,14 +575,15 @@ public class TestCases {
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
         world20.world[1][1] = new Rock(new Point(1, 1), world20.world);
-        Point pos20 = ((Rock) world20.world[1][1]).getEntityPosition();
+        Point rockPosition = ((Rock) world20.world[1][1]).getEntityPosition();
         System.out.println("Actual output:");
-        System.out.printf("x=%d, y=%d %n%n", pos20.getPointX(), pos20.getPointY());
+        System.out.printf("x=%d, y=%d %n%n", rockPosition.getPointX(), rockPosition.getPointY());
 
 
-        // Test 21
-        // Test getEntityPosition() method. Rock starting at (0,0) - corner case
-        System.out.println("\n\nTest 21:\nTesting getEntityPosition(). Rock is placed at (0,0) corner.");
+
+
+        // Test 21 - same thing but corner
+        System.out.println("\n\nTest 21:\nTesting getEntityPosition(). Rock placed at corner (0,0).");
         System.out.println(
                 """
         Expected output:
@@ -551,14 +594,16 @@ public class TestCases {
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
         world21.world[0][0] = new Rock(new Point(0, 0), world21.world);
-        Point pos21 = ((Rock) world21.world[0][0]).getEntityPosition();
+        Point result21 = ((Rock) world21.world[0][0]).getEntityPosition();
         System.out.println("Actual output:");
-        System.out.printf("x=%d, y=%d %n%n", pos21.getPointX(), pos21.getPointY());
+        System.out.printf("x=%d, y=%d %n%n", result21.getPointX(), result21.getPointY());
 
 
-        // Test 22
-        // Test setEntityPosition() method. Rock starting at (1,1), moved to (2,2)
-        System.out.println("\n\nTest 22:\nTesting setEntityPosition(). Rock is at (1,1), set to (2,2).");
+
+
+        // Test 22 - setEntityPosition
+        // move rock from 1,1 to 2,2
+        System.out.println("\n\nTest 22:\nTesting setEntityPosition(). Rock moved from (1,1) to (2,2).");
         System.out.println(
                 """
         Expected output:
@@ -569,15 +614,17 @@ public class TestCases {
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
         world22.world[1][1] = new Rock(new Point(1, 1), world22.world);
-        ((Rock) world22.world[1][1]).setEntityPosition(new Point(2, 2));
-        Point pos22 = ((Rock) world22.world[1][1]).getEntityPosition();
+        Rock movedRock = (Rock) world22.world[1][1];
+        movedRock.setEntityPosition(new Point(2, 2));
         System.out.println("Actual output:");
-        System.out.printf("x=%d, y=%d %n%n", pos22.getPointX(), pos22.getPointY());
+        System.out.printf("x=%d, y=%d %n%n", movedRock.getEntityPosition().getPointX(), movedRock.getEntityPosition().getPointY());
+
+
 
 
         // Test 23
-        // Test setEntityPosition() method. Rock set to (-1,-1) simulating removal
-        System.out.println("\n\nTest 23:\nTesting setEntityPosition(). Rock set to (-1,-1) simulating removal.");
+        // what happens when rock gets removed, position should be -1,-1
+        System.out.println("\n\nTest 23:\nTesting setEntityPosition(). Rock set to (-1,-1) when removed.");
         System.out.println(
                 """
         Expected output:
@@ -588,15 +635,17 @@ public class TestCases {
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
         world23.world[0][0] = new Rock(new Point(0, 0), world23.world);
-        ((Rock) world23.world[0][0]).setEntityPosition(new Point(-1, -1));
-        Point pos23 = ((Rock) world23.world[0][0]).getEntityPosition();
+        Rock deadRock = (Rock) world23.world[0][0];
+        deadRock.setEntityPosition(new Point(-1, -1));
         System.out.println("Actual output:");
-        System.out.printf("x=%d, y=%d %n%n", pos23.getPointX(), pos23.getPointY());
+        System.out.printf("x=%d, y=%d %n%n", deadRock.getEntityPosition().getPointX(), deadRock.getEntityPosition().getPointY());
 
 
-        // Test 24
-        // Test checkNeighbors() method. Rock at center (1,1) in a 3x3 world - should return 9
-        System.out.println("\n\nTest 24:\nTesting checkNeighbors(). Rock at (1,1) in 3x3 world.");
+
+
+        // Test 24 - checkNeighbors
+        // rock in the middle of 3x3 should have 9 (includes itself)
+        System.out.println("\n\nTest 24:\nTesting checkNeighbors(). Rock at center (1,1) in 3x3.");
         System.out.println(
                 """
         Expected output:
@@ -607,14 +656,16 @@ public class TestCases {
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
         world24.world[1][1] = new Rock(new Point(1, 1), world24.world);
-        int neighborCount24 = ((Rock) world24.world[1][1]).checkNeighbors().size();
+        int result24 = ((Rock) world24.world[1][1]).checkNeighbors().size();
         System.out.println("Actual output:");
-        System.out.printf("Neighbor count = %d %n%n", neighborCount24);
+        System.out.printf("Neighbor count = %d %n%n", result24);
+
+
 
 
         // Test 25
-        // Test checkNeighbors() method. Rock at corner (0,0) in a 3x3 world - should return 4
-        System.out.println("\n\nTest 25:\nTesting checkNeighbors(). Rock at corner (0,0) in 3x3 world.");
+        // corner should only have 4 nieghbors
+        System.out.println("\n\nTest 25:\nTesting checkNeighbors(). Rock at corner (0,0) in 3x3.");
         System.out.println(
                 """
         Expected output:
@@ -625,14 +676,15 @@ public class TestCases {
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
         world25.world[0][0] = new Rock(new Point(0, 0), world25.world);
-        int neighborCount25 = ((Rock) world25.world[0][0]).checkNeighbors().size();
+        int rockCornerNeighbors = ((Rock) world25.world[0][0]).checkNeighbors().size();
         System.out.println("Actual output:");
-        System.out.printf("Neighbor count = %d %n%n", neighborCount25);
+        System.out.printf("Neighbor count = %d %n%n", rockCornerNeighbors);
 
 
-        // Test 26
-        // Test checkNeighbors() method. Rock at edge (1,0) in a 3x3 world - should return 6
-        System.out.println("\n\nTest 26:\nTesting checkNeighbors(). Rock at edge (1,0) in 3x3 world.");
+
+
+        // Test 26 - edge not corner so should be 6
+        System.out.println("\n\nTest 26:\nTesting checkNeighbors(). Rock at edge (1,0) in 3x3.");
         System.out.println(
                 """
         Expected output:
@@ -643,14 +695,15 @@ public class TestCases {
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
         world26.world[1][0] = new Rock(new Point(1, 0), world26.world);
-        int neighborCount26 = ((Rock) world26.world[1][0]).checkNeighbors().size();
+        int result26 = ((Rock) world26.world[1][0]).checkNeighbors().size();
         System.out.println("Actual output:");
-        System.out.printf("Neighbor count = %d %n%n", neighborCount26);
+        System.out.printf("Neighbor count = %d %n%n", result26);
+
+
 
 
         // Test 27
-        // Test getEntityPosition() method. Scissors placed at (1,1)
-        System.out.println("\n\nTest 27:\nTesting getEntityPosition(). Scissors is placed at (1,1).");
+        System.out.println("\n\nTest 27:\nTesting getEntityPosition(). Scissors placed at (1,1).");
         System.out.println(
                 """
         Expected output:
@@ -661,14 +714,15 @@ public class TestCases {
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
         world27.world[1][1] = new Scissors(new Point(1, 1), world27.world);
-        Point pos27 = ((Scissors) world27.world[1][1]).getEntityPosition();
+        Point scissorsPosition = ((Scissors) world27.world[1][1]).getEntityPosition();
         System.out.println("Actual output:");
-        System.out.printf("x=%d, y=%d %n%n", pos27.getPointX(), pos27.getPointY());
+        System.out.printf("x=%d, y=%d %n%n", scissorsPosition.getPointX(), scissorsPosition.getPointY());
 
 
-        // Test 28
-        // Test getEntityPosition() method. Scissors placed at (0,0) - corner case
-        System.out.println("\n\nTest 28:\nTesting getEntityPosition(). Scissors is placed at (0,0) corner.");
+
+
+        // Test 28 - corner case for scissors getEntityPosition
+        System.out.println("\n\nTest 28:\nTesting getEntityPosition(). Scissors at corner (0,0).");
         System.out.println(
                 """
         Expected output:
@@ -679,14 +733,15 @@ public class TestCases {
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
         world28.world[0][0] = new Scissors(new Point(0, 0), world28.world);
-        Point pos28 = ((Scissors) world28.world[0][0]).getEntityPosition();
+        Point result28 = ((Scissors) world28.world[0][0]).getEntityPosition();
         System.out.println("Actual output:");
-        System.out.printf("x=%d, y=%d %n%n", pos28.getPointX(), pos28.getPointY());
+        System.out.printf("x=%d, y=%d %n%n", result28.getPointX(), result28.getPointY());
 
 
-        // Test 29
-        // Test setEntityPosition() method. Scissors at (1,1), set to (2,2)
-        System.out.println("\n\nTest 29:\nTesting setEntityPosition(). Scissors is at (1,1), set to (2,2).");
+
+
+        // Test 29 - setEntityPosition scissors
+        System.out.println("\n\nTest 29:\nTesting setEntityPosition(). Scissors moved from (1,1) to (2,2).");
         System.out.println(
                 """
         Expected output:
@@ -697,15 +752,17 @@ public class TestCases {
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
         world29.world[1][1] = new Scissors(new Point(1, 1), world29.world);
-        ((Scissors) world29.world[1][1]).setEntityPosition(new Point(2, 2));
-        Point pos29 = ((Scissors) world29.world[1][1]).getEntityPosition();
+        Scissors movedScissors = (Scissors) world29.world[1][1];
+        movedScissors.setEntityPosition(new Point(2, 2));
         System.out.println("Actual output:");
-        System.out.printf("x=%d, y=%d %n%n", pos29.getPointX(), pos29.getPointY());
+        System.out.printf("x=%d, y=%d %n%n", movedScissors.getEntityPosition().getPointX(), movedScissors.getEntityPosition().getPointY());
+
+
 
 
         // Test 30
-        // Test setEntityPosition() method. Scissors set to (-1,-1) simulating removal
-        System.out.println("\n\nTest 30:\nTesting setEntityPosition(). Scissors set to (-1,-1) simulating removal.");
+        // scissors removed, should go to -1 -1
+        System.out.println("\n\nTest 30:\nTesting setEntityPosition(). Scissors set to (-1,-1) when removed.");
         System.out.println(
                 """
         Expected output:
@@ -716,15 +773,16 @@ public class TestCases {
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
         world30.world[0][0] = new Scissors(new Point(0, 0), world30.world);
-        ((Scissors) world30.world[0][0]).setEntityPosition(new Point(-1, -1));
-        Point pos30 = ((Scissors) world30.world[0][0]).getEntityPosition();
+        Scissors deadScissors = (Scissors) world30.world[0][0];
+        deadScissors.setEntityPosition(new Point(-1, -1));
         System.out.println("Actual output:");
-        System.out.printf("x=%d, y=%d %n%n", pos30.getPointX(), pos30.getPointY());
+        System.out.printf("x=%d, y=%d %n%n", deadScissors.getEntityPosition().getPointX(), deadScissors.getEntityPosition().getPointY());
 
 
-        // Test 31
-        // Test checkNeighbors() method. Scissors at center (1,1) in a 3x3 world - should return 9
-        System.out.println("\n\nTest 31:\nTesting checkNeighbors(). Scissors at (1,1) in 3x3 world.");
+
+
+        // Test 31 - checkNeighbors scissors center
+        System.out.println("\n\nTest 31:\nTesting checkNeighbors(). Scissors at center (1,1) in 3x3.");
         System.out.println(
                 """
         Expected output:
@@ -735,14 +793,16 @@ public class TestCases {
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
         world31.world[1][1] = new Scissors(new Point(1, 1), world31.world);
-        int neighborCount31 = ((Scissors) world31.world[1][1]).checkNeighbors().size();
+        int result31 = ((Scissors) world31.world[1][1]).checkNeighbors().size();
         System.out.println("Actual output:");
-        System.out.printf("Neighbor count = %d %n%n", neighborCount31);
+        System.out.printf("Neighbor count = %d %n%n", result31);
+
+
 
 
         // Test 32
-        // Test checkNeighbors() method. Scissors at corner (0,0) in a 3x3 world - should return 4
-        System.out.println("\n\nTest 32:\nTesting checkNeighbors(). Scissors at corner (0,0) in 3x3 world.");
+        // corner scissors, should only be 4
+        System.out.println("\n\nTest 32:\nTesting checkNeighbors(). Scissors at corner (0,0) in 3x3.");
         System.out.println(
                 """
         Expected output:
@@ -753,14 +813,15 @@ public class TestCases {
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
         world32.world[0][0] = new Scissors(new Point(0, 0), world32.world);
-        int neighborCount32 = ((Scissors) world32.world[0][0]).checkNeighbors().size();
+        int scissorsCornerNeighbors = ((Scissors) world32.world[0][0]).checkNeighbors().size();
         System.out.println("Actual output:");
-        System.out.printf("Neighbor count = %d %n%n", neighborCount32);
+        System.out.printf("Neighbor count = %d %n%n", scissorsCornerNeighbors);
 
 
-        // Test 33
-        // Test checkNeighbors() method. Scissors at edge (1,0) in a 3x3 world - should return 6
-        System.out.println("\n\nTest 33:\nTesting checkNeighbors(). Scissors at edge (1,0) in 3x3 world.");
+
+
+        // Test 33 - edge should be 6
+        System.out.println("\n\nTest 33:\nTesting checkNeighbors(). Scissors at edge (1,0) in 3x3.");
         System.out.println(
                 """
         Expected output:
@@ -771,8 +832,120 @@ public class TestCases {
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
         world33.world[1][0] = new Scissors(new Point(1, 0), world33.world);
-        int neighborCount33 = ((Scissors) world33.world[1][0]).checkNeighbors().size();
+        int result33 = ((Scissors) world33.world[1][0]).checkNeighbors().size();
         System.out.println("Actual output:");
-        System.out.printf("Neighbor count = %d %n%n", neighborCount33);
+        System.out.printf("Neighbor count = %d %n%n", result33);
+
+        // Test 34
+        // Test removeEntitys() method. Dead Rock is removed from rocks list.
+        System.out.println("\n\nTest 34:\nTesting removeEntitys() method. Dead Rock is removed from rocks list.");
+        System.out.println(
+                """
+        Expected output:
+        rocks size before = 2
+        rocks size after = 1
+        remaining rock position: x=1, y=1
+        """);
+        World world34 = new World(3, 3);
+        // restets counts
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        // adds one alive and dead rock
+        Rock aliveRock34 = new Rock(new Point(1, 1), world34.world);
+        Rock deadRock34 = new Rock(new Point(-1, -1), world34.world);
+        world34.rocks.add(aliveRock34);
+        world34.rocks.add(deadRock34);
+        // prints actual output
+        System.out.println("Actual output:");
+        System.out.printf("rocks size before = %d%n", world34.rocks.size());
+        // removes entities
+        world34.removeEntitys();
+        System.out.printf("rocks size after = %d%n", world34.rocks.size());
+        System.out.printf("remaining rock position: x=%d, y=%d %n%n",
+                world34.rocks.get(0).getEntityPosition().getPointX(),
+                world34.rocks.get(0).getEntityPosition().getPointY());
+
+
+        // Test 35
+        // Test removeEntitys() method. Dead Paper and Scissors are removed from lists.
+        System.out.println("\n\nTest 35:\nTesting removeEntitys() method. Dead Paper and Scissors are removed from lists.");
+        System.out.println(
+                """
+        Expected output:
+        paper size before = 2
+        scissors size before = 2
+        paper size after = 1
+        scissors size after = 1
+        remaining paper position: x=0, y=0
+        remaining scissors position: x=2, y=2
+        """);
+        World world35 = new World(3, 3);
+        // resets counts
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        // adds 1 alive paper and scissors, and 1 dead paper and scissors
+        Paper alivePaper35 = new Paper(new Point(0, 0), world35.world);
+        Paper deadPaper35 = new Paper(new Point(-1, -1), world35.world);
+        Scissors aliveScissors35 = new Scissors(new Point(2, 2), world35.world);
+        Scissors deadScissors35 = new Scissors(new Point(-1, -1), world35.world);
+        world35.paper.add(alivePaper35);
+        world35.paper.add(deadPaper35);
+        world35.scissors.add(aliveScissors35);
+        world35.scissors.add(deadScissors35);
+        // actual tesrting
+        System.out.println("Actual output:");
+        System.out.printf("paper size before = %d%n", world35.paper.size());
+        System.out.printf("scissors size before = %d%n", world35.scissors.size());
+        // remove entitys
+        world35.removeEntitys();
+        // prints outputs
+        System.out.printf("paper size after = %d%n", world35.paper.size());
+        System.out.printf("scissors size after = %d%n", world35.scissors.size());
+        System.out.printf("remaining paper position: x=%d, y=%d%n",
+                world35.paper.get(0).getEntityPosition().getPointX(),
+                world35.paper.get(0).getEntityPosition().getPointY());
+        System.out.printf("remaining scissors position: x=%d, y=%d %n%n",
+                world35.scissors.get(0).getEntityPosition().getPointX(),
+                world35.scissors.get(0).getEntityPosition().getPointY());
+
+
+        // Test 36
+        // Test removeEntitys() method. Living entities stay in their lists.
+        System.out.println("\n\nTest 36:\nTesting removeEntitys() method. Living entities stay in their lists.");
+        System.out.println(
+                """
+        Expected output:
+        rocks size before = 1
+        paper size before = 1
+        scissors size before = 1
+        rocks size after = 1
+        paper size after = 1
+        scissors size after = 1
+        """);
+        World world36 = new World(3, 3);
+        // resets rock counts
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        // adds alive rock paper scissors
+        Rock aliveRock36 = new Rock(new Point(0, 0), world36.world);
+        Paper alivePaper36 = new Paper(new Point(1, 1), world36.world);
+        Scissors aliveScissors36 = new Scissors(new Point(2, 2), world36.world);
+        world36.rocks.add(aliveRock36);
+        world36.paper.add(alivePaper36);
+        world36.scissors.add(aliveScissors36);
+        // prints actual output
+        System.out.println("Actual output:");
+        System.out.printf("rocks size before = %d%n", world36.rocks.size());
+        System.out.printf("paper size before = %d%n", world36.paper.size());
+        System.out.printf("scissors size before = %d%n", world36.scissors.size());
+        // testing to make sure it does not remove anything random
+        world36.removeEntitys();
+        System.out.printf("rocks size after = %d%n", world36.rocks.size());
+        System.out.printf("paper size after = %d%n", world36.paper.size());
+        System.out.printf("scissors size after = %d %n%n", world36.scissors.size());
+
     }
 }

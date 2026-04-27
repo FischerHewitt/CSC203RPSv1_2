@@ -30,8 +30,8 @@ import java.util.Scanner;
 
 
 public class Gameplay {
-    public static int wInt = 0;
-    public static int lInt = 0;
+    public static int wInt = 0; // width of the world
+    public static int hInt = 0; // height of the world
     public static World GameWorld;
 
     // Takes in the user input
@@ -49,16 +49,21 @@ public class Gameplay {
 
         while (!validInput) {
             try {
+                // Prompts for width and Height of the world
                 System.out.println("Welcome to the Rock, paper, scissors game \n"); // This section of code prompts the users to input a length-
-                System.out.println("What is the width of your matrix?: ");          // and width for the game matrix
+                System.out.println("What is the width of your world?: ");          // and width for the game matrix
+                // prompts for width of the world
                 String w = input.nextLine();
-                System.out.println("What is the height of your matrix?: ");
-                String l = input.nextLine();
+                // prompts for height of the world
+                System.out.println("What is the height of your world?: ");
+                String h = input.nextLine();
 
+                // sets world width
                 wInt = Integer.parseInt(w);
-                lInt = Integer.parseInt(l);
+                // sets world height
+                hInt = Integer.parseInt(h);
 
-                if (wInt < 0 || lInt < 0) {
+                if (wInt < 0 || hInt < 0) {
                     System.out.println("negative input, try again? (y/n)");
                     String c = input.nextLine();
                     if (c.equalsIgnoreCase("y")) {
@@ -68,7 +73,7 @@ public class Gameplay {
                 }
 
                 // Creates the Game World where the simulation will play
-                GameWorld = new World(wInt, lInt);
+                GameWorld = new World(wInt, hInt);
 
                 System.out.println("How many of each rock paper scissors do you want\n" +
                         "in the world (i.e., three rocks, three papers, three scissors. input: 3)?");
@@ -86,7 +91,7 @@ public class Gameplay {
 
                 System.out.printf("Added %d rock, %d paper, %d scissors.%n", objInts, objInts, objInts);
 
-                if ((objInts * 3) > (wInt * lInt)) {
+                if ((objInts * 3) > (wInt * hInt)) {
                     System.out.println("too many objects");
                     System.out.println("try again? (y/n)");
                     String c = input.nextLine();

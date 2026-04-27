@@ -162,6 +162,55 @@ class World{
     }
 
     /*
+    purpose: removes rocks, papers, and scissors from item list that are not in the world
+    input: null
+    result: entities are removed from lists if they are not needed anymore
+    output: null
+     */
+    public void removeEntitys(){
+        int rockIdx = 0;
+        // removes rocks in the list
+        // while idx is less than rocks.size
+        while (rockIdx < this.rocks.size()){
+            // if rocks x position is -1
+            if (this.rocks.get(rockIdx).getEntityPosition().getPointX() == -1
+            && this.rocks.get(rockIdx).getEntityPosition().getPointY() == -1){
+                // remove rock
+                this.rocks.remove(rockIdx);
+            } else {
+                // keep moving through the list
+                rockIdx++;
+            }
+        }
+
+        int paperIdx = 0;
+        // while idx is less than paper.size
+        while (paperIdx < this.paper.size()){
+            // if paper x position is -1 remove the paper
+            if (this.paper.get(paperIdx).getEntityPosition().getPointX() == -1
+            && this.paper.get(paperIdx).getEntityPosition().getPointY() == -1 ){
+                this.paper.remove(paperIdx);
+            } else {
+                // else keep moving through the list
+                paperIdx++;
+            }
+        }
+
+        int scissorsIdx = 0;
+        // while idx is less than scissors.size
+        while (scissorsIdx < this.scissors.size()){
+            // if scissor x position is -1 remove the scissors
+            if (this.scissors.get(scissorsIdx).getEntityPosition().getPointX() == -1
+            && this.scissors.get(scissorsIdx).getEntityPosition().getPointY() == -1){
+                this.scissors.remove(scissorsIdx);
+            } else {
+                // keep moving through the list
+                scissorsIdx++;
+            }
+        }
+    }
+
+    /*
     purpose: to start a round, have each entity attack each other, and then move around the board
     input: null
     result: one class is left standing and the games ends
@@ -205,6 +254,8 @@ class World{
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt(); // restore interupted status
                 }
+                // removes entitys that are not in the world from the entity lists
+                removeEntitys();
             }
 
             // Checks to see if Scissors Has Won
