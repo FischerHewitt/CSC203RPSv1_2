@@ -34,7 +34,12 @@ public class Gameplay {
     public static int hInt = 0; // height of the world
     public static World GameWorld;
 
-    // Takes in the user input
+    /*
+    Purpose: to initialize a world and run a game
+    input: null
+    result: a world is created and a game is played (a bunch of things are printed to the console)
+    output: null
+     */
     static void runGame(Integer objects) {
         Rock.rockCount = 0;
         Paper.paperCount = 0;
