@@ -941,7 +941,7 @@ public class TestCases {
         System.out.printf("rocks size before = %d%n", world36.rocks.size());
         System.out.printf("paper size before = %d%n", world36.paper.size());
         System.out.printf("scissors size before = %d%n", world36.scissors.size());
-        // testing to make sure it does not remove anything random
+        // testing to make sure it does not remove anything alive
         world36.removeEntitys();
         System.out.printf("rocks size after = %d%n", world36.rocks.size());
         System.out.printf("paper size after = %d%n", world36.paper.size());
