@@ -236,8 +236,8 @@ public class TestCases {
 
 
         // Test 10
-        // Test initializeObjects method.
-        System.out.println("\n\nTest 10:\nTesting initializeObjects method.");
+        // Test addEntitys method.
+        System.out.println("\n\nTest 10:\nTesting addEntitys() method.");
         System.out.println(
                 """
         Expected output: A world with 2 rocks 2 paper and 2 scissors.
@@ -255,7 +255,7 @@ public class TestCases {
         Rock.rockCount = 0;
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
-        world10.initializeObjects(2);
+        world10.addEntitys(2);
         world10.printWorld();
 
 
@@ -946,6 +946,45 @@ public class TestCases {
         System.out.printf("rocks size after = %d%n", world36.rocks.size());
         System.out.printf("paper size after = %d%n", world36.paper.size());
         System.out.printf("scissors size after = %d %n%n", world36.scissors.size());
+
+        // Test __
+        // Test playRound() method. Rock should beat Scissors and win.
+        System.out.println("\n\nTest __:\nTesting playRound() method. Rock should defeat Scissors and win.");
+        System.out.println(
+                """
+        Expected output:
+        Initial world has one Rock and one Scissors.
+        Scissors is removed during playRound().
+        Final winner should be Rock.
+        ex final world:
+        +-+-+
+        |R| |
+        +-+-+
+        | | |
+        +-+-+
+        Winner: Rock
+        """);
+
+        World world__ = new World(2, 2);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+
+        // Create Rock and Scissors
+        Rock rock__ = new Rock(new Point(0, 0), world__.world);
+        Scissors scissors__ = new Scissors(new Point(1, 0), world__.world);
+
+        // Add them to world[][]
+        world__.world[0][0] = rock__;
+        world__.world[1][0] = scissors__;
+
+        // Add them to ArrayLists used by playRound()
+        world__.rocks.add(rock__);
+        world__.scissors.add(scissors__);
+
+        System.out.println("Actual output:");
+        world__.playRound();
+        System.out.println();
 
     }
 }

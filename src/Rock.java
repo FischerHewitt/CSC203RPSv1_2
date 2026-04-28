@@ -72,7 +72,15 @@ public class Rock {
     public ArrayList<Point> checkNeighbors(){
         ArrayList<Point> neighbors = new ArrayList<>();
 
-        // Check all positions around the rock
+        /* Check (=C) all positions around the rock
+           +-+-+-+-+     +-+-+-+-+
+           | | | | |     |C|C|C| |
+           +-+-+-+-+     +-+-+-+-+
+           | |R| | |     |C|C|C| |
+           +-+-+-+-+     +-+-+-+-+
+           | | | | |     |C|C|C| |
+           +-+-+-+-+     +-+-+-+-+
+                */
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
                 int newX = position.getPointX() + x;

@@ -44,7 +44,7 @@ public class Gameplay {
         Rock.rockCount = 0;
         Paper.paperCount = 0;
         Scissors.scissorsCount = 0;
-        GameWorld.initializeObjects(objects);
+        GameWorld.addEntitys(objects);
         GameWorld.playRound();
     }
 
@@ -88,8 +88,8 @@ public class Gameplay {
                 // integers objects
                 int objInts = Integer.parseInt(Objects);
                 // checks to see if objects input is negative
-                if (objInts < 0) {
-                    System.out.println("negative input, try again? (y/n)");
+                if (objInts <= 0) {
+                    System.out.println("invalid input, needs to be greater than 0, try again? (y/n)");
                     String c = input.nextLine();
                     if (c.equals("y")) {
                         continue;
@@ -97,8 +97,6 @@ public class Gameplay {
                     return;
                 }
 
-                // prints this to tell the user that we are tring to add entities
-                System.out.printf("Added %d rock, %d paper, %d scissors.%n", objInts, objInts, objInts);
 
                 // checks to see if the amount of objects the user requested is to many for the world
                 if ((objInts * 3) > (wInt * hInt)) {
@@ -110,6 +108,8 @@ public class Gameplay {
                     }
                     return;
                 } else {
+                    // prints this to tell the user that we are tring to add entities
+                    System.out.printf("Added %d rock, %d paper, %d scissors.%n", objInts, objInts, objInts);
                     runGame(objInts);
                     // stops the while loop
                     validInput = true;

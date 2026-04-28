@@ -61,7 +61,7 @@ class World{
     Result: it returns none but the world array will be updated with the objects in the correct x and y coordinates
     Output: null
      */
-    public void initializeObjects(int numOfObjects){
+    public void addEntitys(int numOfObjects){
         for (int idx = 0; idx < numOfObjects; idx++) {
             addRock();// adds a rock to the world
             addPaper();// adds a paper to the world
@@ -258,8 +258,14 @@ class World{
                 removeEntitys();
             }
 
+
+            if (Rock.rockCount == 0 && Paper.paperCount == 0 && Scissors.scissorsCount == 0){
+                running = false;
+                winner = "No Winner";
+                break;
+            }
             // Checks to see if Scissors Has Won
-            if (Rock.rockCount == 0 && Paper.paperCount == 0) {
+            else if (Rock.rockCount == 0 && Paper.paperCount == 0) {
                 running = false;
                 winner = "Scissors";
                 break;

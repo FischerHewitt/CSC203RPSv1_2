@@ -68,6 +68,15 @@ public class Scissors {
         Result: A list of valid neighboring positions is returned
         Returns: ArrayList<Point>
     */
+    /* Check (=C) all positions around the Scissors
+           +-+-+-+-+     +-+-+-+-+
+           | | | | |     |C|C|C| |
+           +-+-+-+-+     +-+-+-+-+
+           | |S| | |     |C|C|C| |
+           +-+-+-+-+     +-+-+-+-+
+           | | | | |     |C|C|C| |
+           +-+-+-+-+     +-+-+-+-+
+                */
     public ArrayList<Point> checkNeighbors(){
         ArrayList<Point> neighbors = new ArrayList<>();
 
