@@ -63,9 +63,9 @@ public class Gameplay {
                 System.out.println("What is the height of your world?: ");
                 String h = input.nextLine();
 
-                // sets world width
+                // sets world width and converts string -> int
                 wInt = Integer.parseInt(w);
-                // sets world height
+                // sets world height and converts string -> int
                 hInt = Integer.parseInt(h);
 
                 // checks to see if height or width are negative
@@ -85,9 +85,9 @@ public class Gameplay {
                 System.out.println("How many of each rock paper scissors do you want\n" +
                         "in the world (i.e., three rocks, three papers, three scissors. input: 3)?");
                 String Objects = input.nextLine();
-                // integers objects
+                // converts number of objects wanted from string -> int
                 int objInts = Integer.parseInt(Objects);
-                // checks to see if objects input is negative
+                // checks to see if objects input is negative or 0
                 if (objInts <= 0) {
                     System.out.println("invalid input, needs to be greater than 0, try again? (y/n)");
                     String c = input.nextLine();
