@@ -19,6 +19,7 @@
  */
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static java.lang.Math.random;
 
@@ -366,6 +367,92 @@ class World{
             }
             System.out.print("+\n"); // adds the last + to the bottom line
         }
+    }
+
+    /*
+   Purpose: provide a human-readable representation of objects when they are printed on the screen
+   Input: none
+   Result: returns the class of the object followed by its hashcode in the format class@hashcode
+   Returns: string
+*/
+    public String toString() {
+        return "Class World(" + width + "x" + height + ") - Rocks: " + Rock.rockCount
+                + ", Papers: " + Paper.paperCount + ", Scissors: " + Scissors.scissorsCount; }
+
+
+    /*
+        creates the hash code of the object
+        input: null
+        result: returns the unique hash value of the object
+        Returns: integer
+     */
+    public int hashCode(){
+        int result = 1;
+        result = result * 37 + Objects.hash(this.width, this.height, this.rocks.size(), this.paper.size(), this.scissors.size());
+        for (Rock curRock : this.rocks) {
+            result = result + curRock.hashCode();
+        }
+        for (Paper curPaper : this.paper) {
+            result = result + curPaper.hashCode();
+        }
+        for (Scissors curScissors : this.scissors) {
+            result = result + curScissors.hashCode();
+        }
+        return result;
+    }
+    /*
+    Purpose: checks to see if object is equal to this object
+    Input: Object
+    Result: returns true if all attributes are equivalent to each other, otherwise it returns false
+    Output: boolean
+    ***current limitation  is the lists of rock, paper, and scissors have to be in the exact same order***
+     */
+    public boolean equals(Object obj){
+        // Checks to see if other Object is null
+        if (obj == null){return false;}
+        // Checks to see if other object is this Object
+        if (this == obj){return true;}
+        // Checks to see if it is the correct class
+        if(!this.getClass().equals(obj.getClass())){return false;}
+        World otherWorld = (World) obj;
+        // Checks to see if the widths are the same
+        if (this.width != otherWorld.width){return false;}
+        // Checks if the heights are the same
+        if (this.height != otherWorld.height){return false;}
+        //Checks if they have the same amount of rocks
+        if (this.rocks.size() == otherWorld.rocks.size()){
+
+            // checks if each rock has the same point
+            for (int idx = 0; idx < this.rocks.size(); idx++){
+                // checks each x and y
+                if (this.rocks.get(idx).getEntityPosition().getPointX() != otherWorld.rocks.get(idx).getEntityPosition().getPointX()
+                || this.rocks.get(idx).getEntityPosition().getPointY() != otherWorld.rocks.get(idx).getEntityPosition().getPointY()){
+                    return false;
+                }
+            }
+        // checks paper list size
+        } else if (this.paper.size() == otherWorld.paper.size()){
+            // checks each paper x and y
+                for (int idx = 0; idx < this.paper.size(); idx++){
+                    if (this.paper.get(idx).getEntityPosition().getPointX() != otherWorld.paper.get(idx).getEntityPosition().getPointX()
+                            || this.paper.get(idx).getEntityPosition().getPointY() != otherWorld.paper.get(idx).getEntityPosition().getPointY()){
+                        return false;
+                    }
+                }
+                // checks scissors list size
+        } else if (this.scissors.size() == otherWorld.scissors.size()) {
+            // checks each x and y
+            for (int idx = 0; idx < this.scissors.size(); idx++) {
+                if (this.scissors.get(idx).getEntityPosition().getPointX() != otherWorld.scissors.get(idx).getEntityPosition().getPointX()
+                        || this.scissors.get(idx).getEntityPosition().getPointY() != otherWorld.scissors.get(idx).getEntityPosition().getPointY()) {
+                    return false;
+                }
+
+
+            }
+        } else {return false;}
+
+        return true;
     }
 
 }

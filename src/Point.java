@@ -36,6 +36,7 @@ public class Point {
     public int getPointX(){
         return this.x;
     }
+
     // Purpose: get the y value of a point
     // Input: null
     // Result: returns an integer of the y vale
@@ -48,6 +49,28 @@ public class Point {
     // Input: null
     // Result: returns a Point
     // output: Point
+
+    /*
+   Purpose: provide a human-readable representation of objects when they are printed on the screen
+   Input: none
+   Result: returns the class of the object followed by its hashcode in the format class@hashcode
+   Returns: string
+*/
+    public String toString() {
+        return "Class Point(" + x + ", " + y + ")"; }
+
+    /*
+        creates the hash code of the object
+        input: null
+        result: returns the unique hash value of the object
+        Returns: integer
+     */
+    public int hashCode(){
+        int result = 1;
+        result = result + 31 * this.x;
+        result = result + 31 * this.y;
+        return result;
+    }
 
     public Point getPoint(){
         return this;

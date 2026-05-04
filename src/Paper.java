@@ -63,6 +63,28 @@ public class Paper {
     }
 
     /*
+   Purpose: provide a human-readable representation of objects when they are printed on the screen
+   Input: none
+   Result: returns the class of the object followed by its hashcode in the format class@hashcode
+   Returns: string
+*/
+    public String toString() {
+        return "Class Paper at " + position.toString(); }
+
+    /*
+        creates the hash code of the object
+        input: null
+        result: returns the unique hash value of the object
+        Returns: integer
+     */
+    public int hashCode(){
+        int result = 3;
+        result = result + 37 * this.getEntityPosition().getPointX();
+        result = result + 37 * this.getEntityPosition().getPointY();
+        return result;
+    }
+
+    /*
         Checks all neighboring cells around the paper and returns a list of valid positions
         Input: none
         Result: A list of valid neighboring positions is returned

@@ -1125,5 +1125,195 @@ public class TestCases {
         world44.playRound();
         System.out.println();
 
+        // Test 45
+// Testing toString() for Point
+        System.out.println("\n\nTest 45:\nTesting toString() for Point at (2,3).");
+        System.out.println(
+                """
+                        Expected output:
+                        Point(2, 3)
+                        """);
+        System.out.println("Actual output:");
+        Point point45 = new Point(2, 3);
+        System.out.println(point45.toString());
+
+
+
+
+// Test 46
+// Testing toString() for Point at origin
+        System.out.println("\n\nTest 46:\nTesting toString() for Point at (0,0).");
+        System.out.println(
+                """
+                        Expected output:
+                        Point(0, 0)
+                        """);
+        System.out.println("Actual output:");
+        Point point46 = new Point(0, 0);
+        System.out.println(point46.toString());
+
+
+
+
+// Test 47
+// Testing toString() for Rock
+        System.out.println("\n\nTest 47:\nTesting toString() for Rock at (2,2).");
+        System.out.println(
+                """
+                        Expected output:
+                        Rock at Point(2, 2)
+                        """);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        World world47 = new World(3, 3);
+        world47.world[2][2] = new Rock(new Point(2, 2), world47.world);
+        System.out.println("Actual output:");
+        System.out.println(((Rock) world47.world[2][2]).toString());
+
+
+
+
+// Test 48
+// Testing toString() for Paper
+        System.out.println("\n\nTest 48:\nTesting toString() for Paper at (0,3).");
+        System.out.println(
+                """
+                        Expected output:
+                        Paper at Point(0, 3)
+                        """);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        World world48 = new World(4, 4);
+        world48.world[0][3] = new Paper(new Point(0, 3), world48.world);
+        System.out.println("Actual output:");
+        System.out.println(((Paper) world48.world[0][3]).toString());
+
+
+
+
+// Test 49
+// Testing toString() for Scissors
+        System.out.println("\n\nTest 49:\nTesting toString() for Scissors at (2,0).");
+        System.out.println(
+                """
+                        Expected output:
+                        Scissors at Point(2, 0)
+                        """);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        World world49 = new World(3, 3);
+        world49.world[2][0] = new Scissors(new Point(2, 0), world49.world);
+        System.out.println("Actual output:");
+        System.out.println(((Scissors) world49.world[2][0]).toString());
+
+
+
+
+// Test 50
+// Testing toString() for World
+        System.out.println("\n\nTest 50:\nTesting toString() for World with width=3, height=3.");
+        System.out.println(
+                """
+                        Expected output:
+                        World(3x3)
+                        """);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+        World world50 = new World(3, 3);
+        System.out.println("Actual output:");
+        System.out.println(world50.toString());
+
+        // Test 51
+        // Test Rock, Paper, Scissors, World HashCode() method
+        System.out.println("\n\nTest 51:\nTesting Rock, Paper, Scissors, Point, and World HashCode() method.");
+        System.out.println(
+                """
+        Expected output:
+        Rock hashCode() = 3
+        Paper hashCode() = 40
+        Scissors hashCode() = 77
+        Point (0,0) hashCode() = 1
+        Point (1,0) hashCode() = 63
+        Point (1,1) hashCode() = 32
+        World hashCode() = 30536925
+        """);
+
+        World world51 = new World(2, 2);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+
+        // Create Rock and Scissors
+        Rock rock51 = new Rock(new Point(0, 0), world51.world);
+        Scissors scissors51 = new Scissors(new Point(1, 0), world51.world);
+        Paper paper51 = new Paper(new Point(1, 1), world51.world);
+        // Add them to world[][]
+        world51.world[0][0] = rock51;
+        world51.world[1][0] = scissors51;
+        world51.world[1][1] = paper51;
+
+        // Add them to ArrayLists used by playRound()
+        world51.rocks.add(rock51);
+        world51.scissors.add(scissors51);
+        world51.paper.add(paper51);
+
+        System.out.println("Actual output:");
+        System.out.printf("Rock hashCode() = %d%n", world51.world[0][0].hashCode());
+        System.out.printf("Paper hashCode() = %d%n", world51.world[1][0].hashCode());
+        System.out.printf("Scissors hashCode() = %d%n", world51.world[1][1].hashCode());
+        System.out.printf("Point (0,0) hashCode() = %d%n", rock51.getEntityPosition().hashCode());
+        System.out.printf("Point (1,0) hashCode() = %d%n", paper51.getEntityPosition().hashCode());
+        System.out.printf("Point (1,1) hashCode() = %d%n", scissors51.getEntityPosition().hashCode());
+        System.out.printf("World hashCode() = %d%n", world51.hashCode());
+        System.out.println();
+
+        // Test 52
+        // Test Rock, Paper, Scissors, World HashCode() method
+        System.out.println("\n\nTest 52:\nTesting Rock, Paper, Scissors, Point, and World HashCode() method.");
+        System.out.println(
+                """
+        Expected output:
+        Rock hashCode() = 114
+        Paper hashCode() = 188
+        Scissors hashCode() = 225
+        Point (1,2) hashCode() = 94
+        Point (2,3) hashCode() = 187
+        Point (3,3) hashCode() = 156
+        World hashCode() = 32443956
+        """);
+
+        World world52 = new World(4, 4);
+        Rock.rockCount = 0;
+        Paper.paperCount = 0;
+        Scissors.scissorsCount = 0;
+
+        // Create Rock and Scissors
+        Rock rock52 = new Rock(new Point(1, 2), world52.world);
+        Scissors scissors52 = new Scissors(new Point(2, 3), world52.world);
+        Paper paper52 = new Paper(new Point(3, 3), world52.world);
+        // Add them to world[][]
+        world52.world[1][2] = rock52;
+        world52.world[2][3] = scissors52;
+        world52.world[3][3] = paper52;
+
+        // Add them to ArrayLists used by playRound()
+        world52.rocks.add(rock52);
+        world52.scissors.add(scissors52);
+        world52.paper.add(paper52);
+
+        System.out.println("Actual output:");
+        System.out.printf("Rock hashCode() = %d%n", world52.world[1][2].hashCode());
+        System.out.printf("Paper hashCode() = %d%n", world52.world[2][3].hashCode());
+        System.out.printf("Scissors hashCode() = %d%n", world52.world[3][3].hashCode());
+        System.out.printf("Point (1,2) hashCode() = %d%n", rock52.getEntityPosition().hashCode());
+        System.out.printf("Point (2,3) hashCode() = %d%n", paper52.getEntityPosition().hashCode());
+        System.out.printf("Point (3,3) hashCode() = %d%n", scissors52.getEntityPosition().hashCode());
+        System.out.printf("World hashCode() = %d%n", world52.hashCode());
+        System.out.println();
+
     }
 }
