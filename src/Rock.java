@@ -99,6 +99,4 @@ public class Rock implements IEntity{
         return attackInstance;
     }
 
-
-
 }
