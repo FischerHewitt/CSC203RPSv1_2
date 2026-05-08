@@ -41,9 +41,6 @@ public class Gameplay {
     output: null
      */
     static void runGame(Integer objects) {
-        Rock.rockCount = 0;
-        Paper.paperCount = 0;
-        Scissors.scissorsCount = 0;
         GameWorld = new World(wInt, hInt, objects);
         GameWorld.playRound();
     }

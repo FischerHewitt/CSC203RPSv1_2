@@ -142,4 +142,6 @@ public interface IEntity {
 
     boolean attack(IEntity[][] map);
 
+    void printInWorld();
+
 }

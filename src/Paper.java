@@ -25,8 +25,6 @@ public class Paper implements IEntity{
     // Current rock position
     // Random number generator
 
-    // Rock count
-    public static int paperCount = 0;
     private Point position;
 
     /*
@@ -37,7 +35,6 @@ public class Paper implements IEntity{
     */
     public Paper(Point position){
         this.position = position;
-        paperCount++;
     }
 
     public static void initializeEntity(World world){
@@ -66,6 +63,10 @@ public class Paper implements IEntity{
         this.position = position;
     }
 
+    public void printInWorld(){
+        System.out.print("|P");
+    }
+
     /*
         Attacks a rock object if it is in a neighboring cell
         Input: none
@@ -78,17 +79,15 @@ public class Paper implements IEntity{
         boolean attackInstance = false;
         // Evaluates which neighbors are paper, and then adds them to valid neighbors
         for (Point neighbor: neighbors) {
-            if (map[neighbor.getPointX()][neighbor.getPointY()] instanceof Rock) {
+            if (map[neighbor.getPointX()][neighbor.getPointY()].getClass().getSimpleName().equals("Rock")) {
                 validNeighbors.add(neighbor);
             }
         }
         // for each neighbor that is paper, it will eliminate it from the world
         for (Point p : validNeighbors) {
-            if(map[p.getPointX()][p.getPointY()] instanceof Rock){
+            if(map[p.getPointX()][p.getPointY()].getClass().getSimpleName().equals("Rock")){
                 // sets its position to (-1, -1)
                 removeEntity(p.getPointX(), p.getPointY(), map);
-                // reduces the paper count by 1
-                Rock.rockCount--;
                 // Sets attack instance to true
                 attackInstance = true;
             }

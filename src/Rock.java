@@ -24,12 +24,7 @@ import java.util.Random;
 
 public class Rock implements IEntity{
     // Current rock position
-    // Random number generator
-
-    // Rock count
-    public static int rockCount = 0;
     private Point position;
-
     /*
         Creates a new rock object
         Input: Point position
@@ -38,9 +33,10 @@ public class Rock implements IEntity{
     */
     public Rock(Point position){
         this.position = position;
-        rockCount++;
     }
-
+    /*
+    Intializes a rock entity into the world
+     */
     public static void initializeEntity(World world){
         Point rockPoint = IEntity.findEmpty(world);  //finds an empty coordinate in the world array
         world.map[rockPoint.getPointX()][rockPoint.getPointY()] = new Rock(rockPoint); // puts the new rock in the world
@@ -67,6 +63,11 @@ public class Rock implements IEntity{
         this.position = position;
     }
 
+    public void printInWorld(){
+        System.out.print("|R");
+    }
+
+
 
     /*
         Attacks a scissors object if it is in a neighboring cell
@@ -89,8 +90,6 @@ public class Rock implements IEntity{
             if(map[p.getPointX()][p.getPointY()] instanceof Scissors){
                 // sets its position to (-1, -1)
                 removeEntity(p.getPointX(), p.getPointY(), map);
-                // reduces the paper count by 1
-                Scissors.scissorsCount--;
                 // Sets attack instance to true
                 attackInstance = true;
             }

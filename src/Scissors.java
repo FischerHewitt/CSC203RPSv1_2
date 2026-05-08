@@ -25,7 +25,6 @@ public class Scissors implements IEntity{
     // Random number generator
 
     // Rock count
-    public static int scissorsCount = 0;
     private Point position;
 
     /*
@@ -36,7 +35,6 @@ public class Scissors implements IEntity{
     */
     public Scissors(Point position){
         this.position = position;
-        scissorsCount++;
     }
 
     public static void initializeEntity(World world){
@@ -61,6 +59,10 @@ public class Scissors implements IEntity{
     */
     public void setEntityPosition(Point position) {this.position = position;}
 
+    public void printInWorld(){
+        System.out.print("|S");
+    }
+
     /*
         Attacks a paper object if it is in a neighboring cell
         Input: none
@@ -73,18 +75,16 @@ public class Scissors implements IEntity{
         boolean attackInstance = false;
         // Evaluates which neighbors are paper, and then adds them to valid neighbors
         for (Point neighbor: neighbors) {
-            if (map[neighbor.getPointX()][neighbor.getPointY()] instanceof Paper) {
+            if (map[neighbor.getPointX()][neighbor.getPointY()].getClass().getSimpleName().equals("Paper")) {
                 validNeighbors.add(neighbor);
             }
         }
 
         // for each neighbor that is paper, it will eliminate it from the world
         for (Point p : validNeighbors) {
-            if(map[p.getPointX()][p.getPointY()] instanceof Paper){
+            if(map[p.getPointX()][p.getPointY()].getClass().getSimpleName().equals("Paper")){
                 // sets its position to (-1, -1)
                 removeEntity(p.getPointX(), p.getPointY(), map);
-                // reduces the paper count by 1
-                Paper.paperCount--;
                 // Sets attack instance to true
                 attackInstance = true;
             }

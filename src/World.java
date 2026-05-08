@@ -30,9 +30,6 @@ class World{
     ArrayList<IEntity> entityArrayList = new ArrayList<>();
 
 
-
-
-
     /*
     purpose: Creates the world as an Array<Array<String>> where its an Array[width[height]].
     each empty slot is represented as null (Java default)
@@ -59,15 +56,6 @@ class World{
 
     }
 
-    /*
-    purpose: gets a random value between 0 and the height
-    input: null
-    result: a random integer between 0 and the height
-    output: int of a random value
-     */
-    public int getRandomHeight(){
-        return (int)(random() * this.height);
-    }
 
     /*
     purpose: removes rocks, papers, and scissors from item list that are not in the world
@@ -92,6 +80,30 @@ class World{
         }
     }
 
+    private boolean endGame(ArrayList<IEntity> entitiesList){
+        String winner;
+        ArrayList<String> differentEntities= new ArrayList<>();
+        for (int idx = 0; idx < entitiesList.size(); idx++){
+            String curEntityName = entitiesList.get(idx).getClass().getSimpleName();
+            if (!differentEntities.contains(curEntityName)){
+                differentEntities.add(curEntityName);
+            }
+
+        }
+
+        if (differentEntities.size() == 1){
+            winner = differentEntities.getFirst();
+            printWorld(); // prints the final world
+            System.out.printf("Winner: %s", winner); // prints the winner of the game
+            return true;
+        } else if (differentEntities.isEmpty()){
+            winner = "No Winner";
+            System.out.printf("Winner: %s", winner); // prints the winner of the game
+            return true;
+        } else {
+        return false;}
+    }
+
     /*
     purpose: to start a round, have each entity attack each other, and then move around the board
     input: null
@@ -101,7 +113,6 @@ class World{
 
     public void playRound(){
         boolean running = true;
-        String winner = "";
         printWorld(); // prints the initial world with all the entities
 
         // runs the game
@@ -126,27 +137,8 @@ class World{
                 cleanEntitys();
             }
 
-            if (Rock.rockCount == 0 && Paper.paperCount == 0 && Scissors.scissorsCount == 0){
+            if (endGame(this.entityArrayList)){
                 running = false;
-                winner = "No Winner";
-                break;
-            }
-            // Checks to see if Scissors Has Won
-            else if (Rock.rockCount == 0 && Paper.paperCount == 0) {
-                running = false;
-                winner = "Scissors";
-                break;
-            }
-            // checks to see if rock has won
-            else if ((Paper.paperCount == 0 && Scissors.scissorsCount == 0)){
-                running = false;
-                winner = "Rock";
-                break;
-            }
-            // checks to see if Paper has won
-            else if (Scissors.scissorsCount == 0 && Rock.rockCount == 0){
-                running = false;
-                winner = "Paper";
                 break;
             }
 
@@ -167,12 +159,7 @@ class World{
 
         }
 
-        printWorld(); // prints the final world
-        System.out.printf("Winner: %s", winner); // prints the winner of the game
-
     }
-
-
 
 
 
@@ -202,12 +189,8 @@ class World{
         // prints the rest of the world
         for (int idxHeight = 0; idxHeight < this.height; idxHeight++){
             for (int idxWidth = 0; idxWidth < this.width; idxWidth++) { // has to print at each width first before the height
-                if (map[idxWidth][idxHeight] instanceof Rock) { // checks if it is a rock
-                    System.out.print("|R");
-                } else if (map[idxWidth][idxHeight] instanceof Paper) { // checks if it is a paper
-                    System.out.print("|P");
-                } else if (map[idxWidth][idxHeight] instanceof Scissors) { // checks if is it a scissors
-                    System.out.print("|S");
+                if (map[idxWidth][idxHeight] != null) { // checks if it is a rock
+                    map[idxWidth][idxHeight].printInWorld();
                 } else {
                     System.out.print("| ");
                 }
