@@ -25,10 +25,11 @@ import static java.lang.Math.random;
 class World{
     public int width;
     public int height;
-    Object[][] world;
-    ArrayList<Rock> rocks = new ArrayList<>();
-    ArrayList<Paper> paper = new ArrayList<>();
-    ArrayList<Scissors> scissors = new ArrayList<>();
+    public int numOfEntities;
+    IEntity[][] map;
+    ArrayList<IEntity> entityArrayList = new ArrayList<>();
+    //ArrayList<Paper> paper = new ArrayList<>();
+    //ArrayList<Scissors> scissors = new ArrayList<>();
 
 
 
@@ -40,115 +41,23 @@ class World{
     and our y will be in the vertical direction(also known as the height) starting at 0.
     {{(0,0), (0,1), (0,2)}, {(1,0), (1,1), (2,1)}}
      */
-    World(int width, int height){//width is the size of the outer list, height is the size of the inner list
+    World(int width, int height, int numOfEntities){//width is the size of the outer list, height is the size of the inner list
 
         this.width = width;
         this.height = height;
-        this.world = new Object[width][height];
+        this.numOfEntities = numOfEntities;
+        this.map = new IEntity[width][height];
 
         // sets the list = to null
         for (int idxW = 0; idxW < this.width; idxW++){
             for (int idxH = 0; idxH < this.height; idxH++){
-                this.world[idxW][idxH] = null;
+                this.map[idxW][idxH] = null;
 
             }
         }
-    }
 
-    /*
-    purpose: initializes each rock, paper, and scissors objects based on how many the user wanted
-    Input: int number of objects
-    Result: it returns none but the world array will be updated with the objects in the correct x and y coordinates
-    Output: null
-     */
-    public void addEntitys(int numOfObjects){
-        for (int idx = 0; idx < numOfObjects; idx++) {
-            addRock();// adds a rock to the world
-            addPaper();// adds a paper to the world
-            addScissors();// adds scissors to the world
+        IEntity.initializeEntities(this, numOfEntities);
 
-        }
-    }
-
-    /*
-    purpose: this initializes a Rock Object and add it to our world array.
-    Input: null
-    output: null
-    Result: After finding an empty spot using the findEmpty,
-    it creates a new rock object with the coordinates it is at in the list
-     */
-    public void addRock(){
-        int xRock = getRandomWidth(); //gets the x coordinate of the rock by generating a random int between 0 and width
-        int yRock = getRandomHeight(); //gets the y coordinate of the rock by generating a random int between 0 and height
-        Point rockPoint = findEmpty(xRock, yRock);  //finds an empty coordinate in the world array
-
-        this.world[rockPoint.getPointX()][rockPoint.getPointY()] = new Rock(rockPoint, this.world); // puts the new rock in the world
-        this.rocks.add((Rock)this.world[rockPoint.getPointX()][rockPoint.getPointY()]); // adds the rock to the rocks array list
-    }
-
-    /*
-    purpose: this initializes a Paper Object and add it to our world array.
-    Input: null
-    output: null
-    Result: After finding an empty spot using the findEmpty,
-    it creates a new paper object with the coordinates it is at in the list
-     */
-
-    public void addPaper(){
-        int xPaper = getRandomWidth(); //gets the x coordinate of the paper by generating a random int between 0 and width
-        int yPaper = getRandomHeight(); //gets the y coordinate of the paper by generating a random int between 0 and height
-        Point paperPoint = findEmpty(xPaper, yPaper);  //finds an empty coordinate in the world array
-
-        this.world[paperPoint.getPointX()][paperPoint.getPointY()] = new Paper(paperPoint, this.world); // puts the paper in the world
-        this.paper.add((Paper)this.world[paperPoint.getPointX()][paperPoint.getPointY()]); // adds the paper to the paper array list
-    }
-
-    /*
-    purpose: this initializes a Scissors Object and add it to our world array.
-    Input: null
-    output: null
-    Result: After finding an empty spot using the findEmpty,
-    it creates a new scissors object with the coordinates it is at in the list
-     */
-    public void addScissors(){
-        int xScissors = getRandomWidth(); //gets the x coordinate of the scissors by generating a random int between 0 and width
-        int yScissors = getRandomHeight(); //gets the y coordinate of the scissors by generating a random int between 0 and height
-        Point scissorsPoint = findEmpty(xScissors, yScissors); //finds an empty coordinate in the world array
-
-        this.world[scissorsPoint.getPointX()][scissorsPoint.getPointY()] = new Scissors(scissorsPoint, this.world); // adds scissors to the world
-        this.scissors.add((Scissors) this.world[scissorsPoint.getPointX()][scissorsPoint.getPointY()]); // adds scissors to the scissor array list
-    }
-
-    /*
-    purpose: finds an empty spot in the array initializing all the objects to make sure they have a place
-    (we check to make sure all objects will fit in dimensions in gameplay)
-    input: int x, int y
-    result: Point(x,y). Returns a point that is a valid empty spot.
-     */
-    public Point findEmpty(int x, int y){
-        while (world[x][y] != null){ //if the current spot is not empty go check all the x's for each height.
-            int counter = 0;
-            while ((world[x][y] != null) && (counter < this.width)){
-                x = (x + 1) % this.width; // makes sure it stays within the boundaries
-                counter++; // lets us check the height and not iterate for infinity
-            }
-            if (world[x][y] == null){ // check to see if it is null space or if we need to increase the height by 1
-                break;
-            }
-            y = (y + 1) % this.height; // makes sure it stays within the height boundaries
-        }
-
-        return new Point(x, y);
-    }
-
-    /*
-    purpose: gets a random value between 0 and the width
-    input: null
-    result: a random integer between 0 and the width
-    output: int of a random value
-     */
-    public int getRandomWidth(){
-        return (int)(random() * this.width);
     }
 
     /*
@@ -167,45 +76,19 @@ class World{
     result: entities are removed from lists if they are not needed anymore
     output: null
      */
-    public void removeEntitys(){
-        int rockIdx = 0;
+    public void cleanEntitys(){
+        int entityListIdx = 0;
         // removes rocks in the list
         // while idx is less than rocks.size
-        while (rockIdx < this.rocks.size()){
+        while (entityListIdx < this.entityArrayList.size()){
             // if rocks x position is -1
-            if (this.rocks.get(rockIdx).getEntityPosition().getPointX() == -1
-            && this.rocks.get(rockIdx).getEntityPosition().getPointY() == -1){
+            if (this.entityArrayList.get(entityListIdx).getEntityPosition().getPointX() == -1
+            && this.entityArrayList.get(entityListIdx).getEntityPosition().getPointY() == -1){
                 // remove rock
-                this.rocks.remove(rockIdx);
+                this.entityArrayList.remove(entityListIdx);
             } else {
                 // keep moving through the list
-                rockIdx++;
-            }
-        }
-
-        int paperIdx = 0;
-        // while idx is less than paper.size
-        while (paperIdx < this.paper.size()){
-            // if paper x position is -1 remove the paper
-            if (this.paper.get(paperIdx).getEntityPosition().getPointX() == -1
-            && this.paper.get(paperIdx).getEntityPosition().getPointY() == -1 ){
-                this.paper.remove(paperIdx);
-            } else {
-                // else keep moving through the list
-                paperIdx++;
-            }
-        }
-
-        int scissorsIdx = 0;
-        // while idx is less than scissors.size
-        while (scissorsIdx < this.scissors.size()){
-            // if scissor x position is -1 remove the scissors
-            if (this.scissors.get(scissorsIdx).getEntityPosition().getPointX() == -1
-            && this.scissors.get(scissorsIdx).getEntityPosition().getPointY() == -1){
-                this.scissors.remove(scissorsIdx);
-            } else {
-                // keep moving through the list
-                scissorsIdx++;
+                entityListIdx++;
             }
         }
     }
@@ -216,6 +99,7 @@ class World{
     result: one class is left standing and the games ends
     output: null
      */
+    /*
     public void playRound(){
         boolean running = true;
         String winner = "";
@@ -255,10 +139,10 @@ class World{
                     Thread.currentThread().interrupt(); // restore interupted status
                 }
                 // removes entitys that are not in the world from the entity lists
-                removeEntitys();
+                cleanEntitys();
             }
 
-
+            /*
             if (Rock.rockCount == 0 && Paper.paperCount == 0 && Scissors.scissorsCount == 0){
                 running = false;
                 winner = "No Winner";
@@ -283,26 +167,15 @@ class World{
                 break;
             }
 
-            // Moves each object
-            // moves rock
-            for (int rockIdx = 0; rockIdx < this.rocks.size(); rockIdx++){
-                if (this.rocks.get(rockIdx).getEntityPosition().getPointX() != -1) {
-                    this.rocks.get(rockIdx).moveRock();
-                }
-            }
-            // moves paper
-            for (int paperIdx = 0; paperIdx < this.paper.size(); paperIdx++){
-                if (this.paper.get(paperIdx).getEntityPosition().getPointX() != -1) {
-                    this.paper.get(paperIdx).movePaper();
-                }
-            }
-            // moves scissors
-            for (int scissorsIdx = 0; scissorsIdx < this.scissors.size(); scissorsIdx++){
-                if (this.scissors.get(scissorsIdx).getEntityPosition().getPointX() != -1) {
-                    this.scissors.get(scissorsIdx).moveScissors();
-                }
-            }
 
+
+            // Moves each object
+            for (int entityListIdx = 0; entityListIdx < this.entityArrayList.size(); entityListIdx++){
+                if (this.entityArrayList.get(entityListIdx).getEntityPosition().getPointX() != -1) {
+                    IEntity entity = this.entityArrayList.get(entityListIdx);
+                    entity.move(entity, this.map);
+                }
+            }
             printWorld();
             try {
                 Thread.sleep(500);// Pauses for 0.5
@@ -316,6 +189,8 @@ class World{
         System.out.printf("Winner: %s", winner); // prints the winner of the game
 
     }
+
+     */
 
 
 
@@ -347,11 +222,11 @@ class World{
         // prints the rest of the world
         for (int idxHeight = 0; idxHeight < this.height; idxHeight++){
             for (int idxWidth = 0; idxWidth < this.width; idxWidth++) { // has to print at each width first before the height
-                if (world[idxWidth][idxHeight] instanceof Rock) { // checks if it is a rock
+                if (map[idxWidth][idxHeight] instanceof Rock) { // checks if it is a rock
                     System.out.print("|R");
-                } else if (world[idxWidth][idxHeight] instanceof Paper) { // checks if it is a paper
+                } else if (map[idxWidth][idxHeight] instanceof Paper) { // checks if it is a paper
                     System.out.print("|P");
-                } else if (world[idxWidth][idxHeight] instanceof Scissors) { // checks if is it a scissors
+                } else if (map[idxWidth][idxHeight] instanceof Scissors) { // checks if is it a scissors
                     System.out.print("|S");
                 } else {
                     System.out.print("| ");

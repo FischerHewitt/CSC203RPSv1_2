@@ -20,26 +20,30 @@
 
 import java.util.ArrayList;
 import java.util.Random;
-
-public class Paper {
-    // Current paper position
+//
+public class Paper implements IEntity{
+    // Current rock position
     // Random number generator
 
-    // Paper count
+    // Rock count
     public static int paperCount = 0;
-    private Object[][] world;
     private Point position;
 
     /*
-        Initializes a paper object with a position and world
+        Initializes a rock object with a position and world
         Input: Point position, Object[][] world
-        Result: A new Paper object is created at the given position in the given world
-        Returns: Paper
+        Result: A new Rock object is created at the given position in the given world
+        Returns: Rock
     */
-    public Paper(Point position, Object[][] world){
+    public Paper(Point position){
         this.position = position;
-        this.world = world;
         paperCount++;
+    }
+
+    public static void initializeEntity(World world){
+        Point paperPoint = IEntity.findEmpty(world);  //finds an empty coordinate in the world array
+        world.map[paperPoint.getPointX()][paperPoint.getPointY()] = new Paper(paperPoint); // puts the new rock in the world
+        world.entityArrayList.add(world.map[paperPoint.getPointX()][paperPoint.getPointY()]); // adds the rock to the rocks array list
     }
 
     /*
@@ -63,101 +67,33 @@ public class Paper {
     }
 
     /*
-        Checks all neighboring cells around the paper and returns a list of valid positions
-        Input: none
-        Result: A list of valid neighboring positions is returned
-        Returns: ArrayList<Point>
-    */
-
-    /* Check (=C) all positions around the paper
-           +-+-+-+-+     +-+-+-+-+
-           | | | | |     |C|C|C| |
-           +-+-+-+-+     +-+-+-+-+
-           | |P| | |     |C|C|C| |
-           +-+-+-+-+     +-+-+-+-+
-           | | | | |     |C|C|C| |
-           +-+-+-+-+     +-+-+-+-+
-                */
-    public ArrayList<Point> checkNeighbors(){
-        ArrayList<Point> neighbors = new ArrayList<>();
-
-        // Check all positions around the rock
-        for(int x = -1; x <= 1; x++){
-            for(int y = -1; y <= 1; y++){
-                int newX = position.getPointX() + x;
-                int newY = position.getPointY() + y;
-
-                // Add to list if within bounds
-                if((newX < this.world.length) && (0 <= newX) && (newY < this.world[0].length) && (0 <= newY)){
-                    neighbors.add(new Point(newX, newY));
-                }
-            }
-        }
-        return neighbors;
-    }
-
-
-    /*
-        Moves the paper to a random neighboring cell
-        Input: none
-        Result: The paper moves to a random valid neighboring position
-        Returns: void
-     */
-    public void movePaper(){
-        ArrayList<Point> neighbors = checkNeighbors();
-        ArrayList<Point> validNeighbors = new ArrayList<>();
-        // Looks for all positions around the paper that are null and adds them to valid neighbors
-        for (Point neighbor: neighbors){
-            if (world[neighbor.getPointX()][neighbor.getPointY()] == null){
-                validNeighbors.add(neighbor);
-            }
-        }
-
-        // if the list is not empty, then it will move to a new position
-        if (validNeighbors.size() > 0) {
-            // Pick a random position from the list,
-            Random rand = new Random();
-            Point newPosition = validNeighbors.get(rand.nextInt(validNeighbors.size()));
-            // Remove from old position
-            world[position.getPointX()][position.getPointY()] = null;
-            // Place this rock in new position
-            world[newPosition.getPointX()][newPosition.getPointY()] = this;
-            setEntityPosition(newPosition);
-        }
-    }
-
-
-    /*
         Attacks a rock object if it is in a neighboring cell
         Input: none
         Result: Adjacent rock is removed from the world and rockCount decreases by 1 returns if it attacked someone or not
         Returns: boolean
     */
-    public boolean paperAttack() {
-        ArrayList<Point> neighbors = checkNeighbors();
+    public boolean attack(IEntity[][] map) {
+        ArrayList<Point> neighbors = checkNeighbors(this.getEntityPosition(), map);
         ArrayList<Point> validNeighbors = new ArrayList<>();
         boolean attackInstance = false;
-        // checks for neighbors that are Rock
+        // Evaluates which neighbors are paper, and then adds them to valid neighbors
         for (Point neighbor: neighbors) {
-            if (world[neighbor.getPointX()][neighbor.getPointY()] instanceof Rock) {
+            if (map[neighbor.getPointX()][neighbor.getPointY()] instanceof Rock) {
                 validNeighbors.add(neighbor);
             }
         }
-
-        // For each rock neighbor, it will remove it from the world
+        // for each neighbor that is paper, it will eliminate it from the world
         for (Point p : validNeighbors) {
-            if(world[p.getPointX()][p.getPointY()] instanceof Rock){
-                // Sets rock position to (-1, -1)
-                ((Rock) world[p.getPointX()][p.getPointY()]).setEntityPosition(new Point(-1, -1));
-                // Sets the rock in the world to null
-                world[p.getPointX()][p.getPointY()] = null;
-                // Subtracts 1 from the rock total
+            if(map[p.getPointX()][p.getPointY()] instanceof Rock){
+                // sets its position to (-1, -1)
+                removeEntity(p.getPointX(), p.getPointY(), map);
+                // reduces the paper count by 1
                 Rock.rockCount--;
-                // Sets the attack instance to True
+                // Sets attack instance to true
                 attackInstance = true;
             }
         }
-        // Returns if it attacked someone or not
+        // returns true if there was an attack and false if there was not
         return attackInstance;
     }
 }

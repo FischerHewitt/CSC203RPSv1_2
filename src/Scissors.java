@@ -17,112 +17,49 @@
 (y)                          v
  */
 
-
 import java.util.ArrayList;
-import java.util.Random;
 
-public class Scissors {
-    // Current scissor position
+//
+public class Scissors implements IEntity{
+    // Current scissors position
     // Random number generator
 
-    // Scissor count
+    // Rock count
     public static int scissorsCount = 0;
-    private Object[][] world;
     private Point position;
 
     /*
-        Initializes a scissors object with a position and world
+        Initializes a rock object with a position and world
         Input: Point position, Object[][] world
-        Result: A new Scissors object is created at the given position in the given world
-        Returns: Scissors
+        Result: A new Rock object is created at the given position in the given world
+        Returns: Rock
     */
-    public Scissors(Point position, Object[][] world){
+    public Scissors(Point position){
         this.position = position;
-        this.world = world;
         scissorsCount++;
     }
 
+    public static void initializeEntity(World world){
+        Point paperPoint = IEntity.findEmpty(world);  //finds an empty coordinate in the world array
+        world.map[paperPoint.getPointX()][paperPoint.getPointY()] = new Scissors(paperPoint); // puts the new rock in the world
+        world.entityArrayList.add(world.map[paperPoint.getPointX()][paperPoint.getPointY()]); // adds the rock to the rocks array list
+    }
+
     /*
-        Returns the current position of the scissors
+        Returns the current position of the paper
         Input: none
-        Result: The current position of the scissors is returned
+        Result: The current position of the paper is returned
         Returns: Point
     */
-    public Point getEntityPosition() {
-        return position;
-    }
+    public Point getEntityPosition() {return position;}
 
     /*
-        Sets the scissors to a new position
+        Sets the paper to a new position
         Input: Point position
-        Result: The scissors position is updated to the new position
+        Result: The paper's position is updated to the new position
         Returns: void
     */
-    public void setEntityPosition(Point position) {
-        this.position = position;
-    }
-
-    /*
-        Checks all neighboring cells around the scissors and returns a list of valid positions
-        Input: none
-        Result: A list of valid neighboring positions is returned
-        Returns: ArrayList<Point>
-    */
-    /* Check (=C) all positions around the Scissors
-           +-+-+-+-+     +-+-+-+-+
-           | | | | |     |C|C|C| |
-           +-+-+-+-+     +-+-+-+-+
-           | |S| | |     |C|C|C| |
-           +-+-+-+-+     +-+-+-+-+
-           | | | | |     |C|C|C| |
-           +-+-+-+-+     +-+-+-+-+
-                */
-    public ArrayList<Point> checkNeighbors(){
-        ArrayList<Point> neighbors = new ArrayList<>();
-
-        // Check all positions around the rock
-        for(int x = -1; x <= 1; x++){
-            for(int y = -1; y <= 1; y++){
-                int newX = position.getPointX() + x;
-                int newY = position.getPointY() + y;
-
-                // Add to list if within bounds
-                if((newX < this.world.length) && (0 <= newX) && (newY < this.world[0].length) && (0 <= newY)){
-                    neighbors.add(new Point(newX, newY));
-                }
-            }
-        }
-        return neighbors;
-    }
-
-
-    /*
-        Moves the scissors to a random neighboring cell
-        Input: none
-        Result: The scissors moves to a random valid neighboring position
-        Returns: void
-    */
-    public void moveScissors(){
-        ArrayList<Point> neighbors = checkNeighbors();
-        ArrayList<Point> validNeighbors = new ArrayList<>();
-        // Checks to see which neighbors are empty/valid spaces to move
-        for (Point neighbor: neighbors){
-            if (world[neighbor.getPointX()][neighbor.getPointY()] == null){
-                validNeighbors.add(neighbor);
-            }
-        }
-        // if valid neighbors is not empty, then move to a new position
-        if (validNeighbors.size() > 0) {
-            // Pick a random position from the list,
-            Random rand = new Random();
-            Point newPosition = validNeighbors.get(rand.nextInt(validNeighbors.size()));
-            // Remove from old position
-            world[position.getPointX()][position.getPointY()] = null;
-            // Place this rock in new position
-            world[newPosition.getPointX()][newPosition.getPointY()] = this;
-            setEntityPosition(newPosition);
-        }
-    }
+    public void setEntityPosition(Point position) {this.position = position;}
 
     /*
         Attacks a paper object if it is in a neighboring cell
@@ -130,24 +67,22 @@ public class Scissors {
         Result: Adjacent paper is removed from the world and paperCount decreases by 1 returns if it attacked someone or not
         Returns: boolean
     */
-    public boolean scissorsAttack() {
-        ArrayList<Point> neighbors = checkNeighbors();
+    public boolean attack(IEntity[][] map) {
+        ArrayList<Point> neighbors = checkNeighbors(this.getEntityPosition(), map);
         ArrayList<Point> validNeighbors = new ArrayList<>();
         boolean attackInstance = false;
         // Evaluates which neighbors are paper, and then adds them to valid neighbors
         for (Point neighbor: neighbors) {
-            if (world[neighbor.getPointX()][neighbor.getPointY()] instanceof Paper) {
+            if (map[neighbor.getPointX()][neighbor.getPointY()] instanceof Paper) {
                 validNeighbors.add(neighbor);
             }
         }
 
         // for each neighbor that is paper, it will eliminate it from the world
         for (Point p : validNeighbors) {
-            if(world[p.getPointX()][p.getPointY()] instanceof Paper){
+            if(map[p.getPointX()][p.getPointY()] instanceof Paper){
                 // sets its position to (-1, -1)
-                ((Paper) world[p.getPointX()][p.getPointY()]).setEntityPosition(new Point(-1, -1));
-                // Sets the point to null
-                world[p.getPointX()][p.getPointY()] = null;
+                removeEntity(p.getPointX(), p.getPointY(), map);
                 // reduces the paper count by 1
                 Paper.paperCount--;
                 // Sets attack instance to true

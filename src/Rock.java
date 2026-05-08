@@ -22,29 +22,33 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class Rock {
+public class Rock implements IEntity{
     // Current rock position
     // Random number generator
 
     // Rock count
     public static int rockCount = 0;
-    private Object[][] world;
     private Point position;
 
     /*
-        Initializes a rock object with a position and world
-        Input: Point position, Object[][] world
-        Result: A new Rock object is created at the given position in the given world
+        Creates a new rock object
+        Input: Point position
+        Result: A new Rock object is created
         Returns: Rock
     */
-    public Rock(Point position, Object[][] world){
+    public Rock(Point position){
         this.position = position;
-        this.world = world;
         rockCount++;
     }
 
+    public static void initializeEntity(World world){
+        Point rockPoint = IEntity.findEmpty(world);  //finds an empty coordinate in the world array
+        world.map[rockPoint.getPointX()][rockPoint.getPointY()] = new Rock(rockPoint); // puts the new rock in the world
+        world.entityArrayList.add(world.map[rockPoint.getPointX()][rockPoint.getPointY()]); // adds the rock to the rocks array list
+    }
+
     /*
-        Returns the current position of the rock
+        Returns the current position of the Rock
         Input: none
         Result: The current position of the rock is returned
         Returns: Point
@@ -54,77 +58,14 @@ public class Rock {
     }
 
     /*
-        Sets the rock to a new position
+        Sets the paper to a new position
         Input: Point position
-        Result: The rock's position is updated to the new position
+        Result: The paper's position is updated to the new position
         Returns: void
     */
     public void setEntityPosition(Point position) {
         this.position = position;
     }
-
-    /*
-        Checks all neighboring cells around the rock and returns a list of valid positions
-        Input: none
-        Result: A list of valid neighboring positions is returned
-        Returns: ArrayList<Point>
-    */
-    public ArrayList<Point> checkNeighbors(){
-        ArrayList<Point> neighbors = new ArrayList<>();
-
-        /* Check (=C) all positions around the rock
-           +-+-+-+-+     +-+-+-+-+
-           | | | | |     |C|C|C| |
-           +-+-+-+-+     +-+-+-+-+
-           | |R| | |     |C|C|C| |
-           +-+-+-+-+     +-+-+-+-+
-           | | | | |     |C|C|C| |
-           +-+-+-+-+     +-+-+-+-+
-                */
-        for (int x = -1; x <= 1; x++) {
-            for (int y = -1; y <= 1; y++) {
-                int newX = position.getPointX() + x;
-                int newY = position.getPointY() + y;
-
-                // Add to list if within bounds
-                if ((newX < this.world.length) && (0 <= newX) && (newY < this.world[0].length) && (0 <= newY)) {
-                    neighbors.add(new Point(newX, newY));
-                }
-            }
-        }
-        return neighbors;
-    }
-
-
-    /*
-        Moves the rock to a random neighboring cell
-        Input: none
-        Result: The rock moves to a random valid neighboring position
-        Returns: void
-    */
-    public void moveRock(){
-        ArrayList<Point> neighbors = checkNeighbors();
-        ArrayList<Point> validNeighbors = new ArrayList<>();
-        // Looks for all positions around the rock that are null and adds them to valid neighbors
-        for (Point neighbor: neighbors){
-            if (world[neighbor.getPointX()][neighbor.getPointY()] == null){
-                validNeighbors.add(neighbor);
-            }
-        }
-
-        // if the list is not empty, then it will move to a new position
-        if (validNeighbors.size() > 0) {
-            // Pick a random position from the list,
-            Random rand = new Random();
-            Point newPosition = validNeighbors.get(rand.nextInt(validNeighbors.size()));
-            // Remove from old position
-            world[position.getPointX()][position.getPointY()] = null;
-            // Place this rock in new position
-            world[newPosition.getPointX()][newPosition.getPointY()] = this;
-            setEntityPosition(newPosition);
-        }
-    }
-
 
 
     /*
@@ -133,31 +74,28 @@ public class Rock {
         Result: Adjacent scissors is removed from the world and scissorsCount decreases by 1 and returns if it attacked someone or not
         Returns: boolean
     */
-    public boolean rockAttack() {
-        ArrayList<Point> neighbors = checkNeighbors();
+    public boolean attack(IEntity[][] map) {
+        ArrayList<Point> neighbors = checkNeighbors(this.getEntityPosition(), map);
         ArrayList<Point> validNeighbors = new ArrayList<>();
         boolean attackInstance = false;
-        // checks for neighbors that are Scissors
+        // Evaluates which neighbors are paper, and then adds them to valid neighbors
         for (Point neighbor: neighbors) {
-            if (world[neighbor.getPointX()][neighbor.getPointY()] instanceof Scissors) {
+            if (map[neighbor.getPointX()][neighbor.getPointY()] instanceof Scissors) {
                 validNeighbors.add(neighbor);
             }
         }
-
-        // For each scissors neighbors, it will remove it from the world
+        // for each neighbor that is paper, it will eliminate it from the world
         for (Point p : validNeighbors) {
-            if(world[p.getPointX()][p.getPointY()] instanceof Scissors){
-                // Sets scissor position to (-1, -1)
-                ((Scissors) world[p.getPointX()][p.getPointY()]).setEntityPosition(new Point(-1, -1));
-                // Sets the rock in the world to null
-                world[p.getPointX()][p.getPointY()] = null;
-                // Subtracts 1 from the rock total
+            if(map[p.getPointX()][p.getPointY()] instanceof Scissors){
+                // sets its position to (-1, -1)
+                removeEntity(p.getPointX(), p.getPointY(), map);
+                // reduces the paper count by 1
                 Scissors.scissorsCount--;
-                // Sets the attack instance to True
+                // Sets attack instance to true
                 attackInstance = true;
             }
         }
-        // Returns if it attacked someone or not
+        // returns true if there was an attack and false if there was not
         return attackInstance;
     }
 
