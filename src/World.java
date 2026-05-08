@@ -28,8 +28,7 @@ class World{
     public int numOfEntities;
     IEntity[][] map;
     ArrayList<IEntity> entityArrayList = new ArrayList<>();
-    //ArrayList<Paper> paper = new ArrayList<>();
-    //ArrayList<Scissors> scissors = new ArrayList<>();
+
 
 
 
@@ -99,7 +98,7 @@ class World{
     result: one class is left standing and the games ends
     output: null
      */
-    /*
+
     public void playRound(){
         boolean running = true;
         String winner = "";
@@ -110,27 +109,12 @@ class World{
             boolean attackInstance = false; // This turns true if there was an attack during the iteration
             // object attack
             // rock attack
-            for (int rockIdx = 0; rockIdx < this.rocks.size(); rockIdx++){
-                if (this.rocks.get(rockIdx).getEntityPosition().getPointX() != -1) {
-                    attackInstance = this.rocks.get(rockIdx).rockAttack() || attackInstance;
+            for (int entityIdx = 0; entityIdx < this.entityArrayList.size(); entityIdx++){
+                if (this.entityArrayList.get(entityIdx).getEntityPosition().getPointX() != -1) {
+                    attackInstance = this.entityArrayList.get(entityIdx).attack(this.map) || attackInstance;
                 }
             }
-            // paper attack
-            for (int paperIdx = 0; paperIdx < this.paper.size(); paperIdx++){
-                if (this.paper.get(paperIdx).getEntityPosition().getPointX() != -1) {
-                    attackInstance = this.paper.get(paperIdx).paperAttack() || attackInstance;
-                }
-            }
-            // scissors attack
-            for (int scissorsIdx = 0; scissorsIdx < this.scissors.size(); scissorsIdx++){
-                if (this.scissors.get(scissorsIdx).getEntityPosition().getPointX() != -1) {
-                    attackInstance = this.scissors.get(scissorsIdx).scissorsAttack() || attackInstance;
-                }
-            }
-
-
             // if an object attacks, you can see the board updated before the pieces move
-
             if (attackInstance) {
                 printWorld();
                 try {
@@ -142,7 +126,6 @@ class World{
                 cleanEntitys();
             }
 
-            /*
             if (Rock.rockCount == 0 && Paper.paperCount == 0 && Scissors.scissorsCount == 0){
                 running = false;
                 winner = "No Winner";
@@ -168,7 +151,6 @@ class World{
             }
 
 
-
             // Moves each object
             for (int entityListIdx = 0; entityListIdx < this.entityArrayList.size(); entityListIdx++){
                 if (this.entityArrayList.get(entityListIdx).getEntityPosition().getPointX() != -1) {
@@ -189,8 +171,6 @@ class World{
         System.out.printf("Winner: %s", winner); // prints the winner of the game
 
     }
-
-     */
 
 
 
